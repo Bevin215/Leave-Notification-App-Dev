@@ -1,0 +1,15 @@
+.body {
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  min-height: 100vh; 
+  margin: 0; 
+  background-color: #f4f4f4;
+}
+
+.card-img-top {
+  object-fit:cover;
+  height: 250px;
+}
+
