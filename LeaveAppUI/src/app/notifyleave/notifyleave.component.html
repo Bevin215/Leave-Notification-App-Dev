@@ -4,10 +4,10 @@
         <h5 class="fw-bold">Notify Leave</h5>
       </div>
       <div class="card-body">
-        <form>
+        <form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">          
           <div class="mb-3">
             <label for="leaveType" class="form-label"><span class="text-danger">*</span>Leave Type </label>
-            <select id="leaveType" class="form-select" required>
+            <select id="leaveType" class="form-select" required formControlName="leaveType">
               <option value="">Select... </option>
               <option value="sick">Sick Off</option>
               <option value="planned">Planned Vacation</option>
@@ -21,38 +21,40 @@
 
           <div class="mb-3">
             <label for="availedBy" class="form-label"><span class="text-danger">*</span>Availed By </label>
-            <input type="text" class="form-control" id="availedBy" value="Polagani Vimala">
+            <select class="form-select" required  formControlName="selectedOption">
+              <option *ngFor="let c of listOfUsers" >{{c.name}}, {{c.email}}</option>            
+            </select>
           </div>
 
           <div class="mb-3">
             <label for="startDate" class="form-label"><span class="text-danger">*</span>Start Date </label>
-            <input type="date" class="form-control" id="startDate" required>
+            <input type="date" class="form-control" id="startDate" required formControlName="startDate">
           </div>
 
           <div class="mb-3">
             <label for="endDate" class="form-label"><span class="text-danger">*</span>End Date </label>
-            <input type="date" class="form-control" id="endDate" required>
+            <input type="date" class="form-control" id="endDate"  required formControlName="endDate">
           </div>
 
           <div class="mb-3">
             <label for="briefReason" class="form-label">Brief Reason</label>
-            <textarea class="form-control" id="briefReason" rows="3"></textarea>
+            <textarea class="form-control" id="briefReason" rows="3" formControlName="briefReason"></textarea>
           </div>
 
           <div class="mb-3">
-            <label for="backupContact" class="form-label"><span class="text-danger">*</span>Backup Contact(s) </label>
-            <input type="email" class="form-control" id="backupContact" placeholder="Start typing the Email id...">
+            <label for="backupContact" class="form-label"><span class="text-danger">*</span> Contact(s) <span class="small text-muted">(Acc Peer only. If none, add Supervisor)</span></label>
+            <input type="email" class="form-control" id="backupContact" placeholder="Start typing the Email id..." formControlName="backupContact">
           </div>
 
           <div class="mb-3">
-            <label for="notifyTo" class="form-label"><span class="text-danger">*</span>Notify To Recipient(s) </label>
-            <input type="email" class="form-control" id="notifyTo" placeholder="Start typing the Email id...">
+            <label for="notifyTo" class="form-label"><span class="text-danger">*</span>Notify To Recipient(s) <span class="small text-muted">(Must add- Acc Supervisor)</span></label>
+            <input type="email" class="form-control" id="notifyTo" placeholder="Start typing the Email id..." formControlName="notifyTo">
           </div>
 
         
           <div class="mb-3">
             <label for="baseLocation" class="form-label"> <span class="text-danger">*</span>Base Location </label>
-            <select id="baseLocation" class="form-select" required>
+            <select id="baseLocation" class="form-select" required formControlName="baseLocation">
               <option value="">Select...</option>
               <option value="location1">Bengaluru</option>
               <option value="location2">Chennai</option>
@@ -74,7 +76,7 @@
 
           <div class="mb-3">
             <label for="projectSow" class="form-label"><span class="text-danger">*</span>Project/SOW </label>
-            <select id="projectSow" class="form-select" required>
+            <select id="projectSow" class="form-select" required formControlName="projectSow">
               <option value="">Select...</option>
               <option value="project1">1136</option>
               <option value="project2">1286</option>
@@ -86,7 +88,7 @@
 
           <div class="mb-3">
             <label for="subLobTeam" class="form-label"><span class="text-danger">*</span>Sub-LOB/Team </label>
-            <select id="subLobTeam" class="form-select" required>
+            <select id="subLobTeam" class="form-select" required formControlName="subLobTeam">
               <option value="">Select...</option>
               <option value="team1">FCT QA</option>
               <option value="team2">FCT DEV</option>
@@ -105,8 +107,8 @@
           </div>
 
           <div class="mb-3">
-            <label for="leaveStatus" class="form-label"> <span class="text-danger">*</span>Leave Status </label>
-            <select id="leaveStatus" class="form-select" required>
+            <label for="leaveStatus" class="form-label"> <span class="text-danger">*</span>Leave Status <span class="small text-muted">(Pick Planned if start date is in future)</span></label>
+            <select id="leaveStatus" class="form-select" required formControlName="leaveStatus">
               <option value="">Select...</option>
               <option value="availed" selected>Availed</option>
               <option value="planned">Planned</option>
@@ -116,7 +118,7 @@
 
           <div class="mb-3">
             <label for="comments" class="form-label">Comments</label>
-            <textarea class="form-control" id="comments" rows="3"></textarea>
+            <textarea class="form-control" id="comments" rows="3" formControlName="comments" ></textarea>
           </div>
 
           <button type="submit" class="btn btn-primary w-100">Submit</button>
