@@ -28,12 +28,12 @@
 
         <div class="mb-3">
           <label for="startDate" class="form-label"><span class="text-danger">*</span>Start Date </label>
-          <input type="date" class="form-control" id="startDate" required formControlName="startDate">
+          <input type="date" class="form-control" id="startDate" required formControlName="startDate" [attr.min]="today">
         </div>
 
         <div class="mb-3">
           <label for="endDate" class="form-label"><span class="text-danger">*</span>End Date </label>
-          <input type="date" class="form-control" id="endDate" required formControlName="endDate">
+          <input type="date" class="form-control" id="endDate" required formControlName="endDate" [attr.min]="today">
         </div>
 
         <div class="mb-3">

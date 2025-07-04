@@ -12,6 +12,8 @@ export interface listOfUsers {
   
 })
 
+
+
 export class NotifyleaveComponent {
 leaveForm = new FormGroup({
         leaveType: new FormControl(),
@@ -43,12 +45,14 @@ leaveForm = new FormGroup({
         baseLocation:  "",
         projectSow: "",
         subLobTeam: "",
-        leaveStatus: "",
+        leaveStatus: ['Availed'],
         comments: "",
         });
     }
   
-  
+    today: string = new Date().toISOString().split('T')[0];
+
+
     listOfUsers = [
       {id: 1, name: "Polagani Vimala",email:"vimala.polagani@accenture.com"},
       {id: 2, name: "Bevin John" ,email:"bevin.john@accenture.com"},
