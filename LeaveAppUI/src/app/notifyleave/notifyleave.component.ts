@@ -1,10 +1,73 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 
+export interface listOfUsers {
+  id: number;
+  name: string;
+}
 @Component({
   selector: 'app-notifyleave',
   templateUrl: './notifyleave.component.html',
-  styleUrls: ['./notifyleave.component.css']
+  styleUrls: ['./notifyleave.component.css'],
+  
 })
-export class NotifyleaveComponent {
 
+
+
+export class NotifyleaveComponent {
+leaveForm = new FormGroup({
+        leaveType: new FormControl(),
+        selectedOption: new FormControl(),
+        startDate: new FormControl(),
+        endDate: new FormControl(),
+        briefReason: new FormControl(),
+        backupContact: new FormControl(),
+        notifyTo: new FormControl(),
+        baseLocation: new FormControl(),
+        projectSow: new FormControl(),
+        subLobTeam: new FormControl(),
+        leaveStatus: new FormControl(),
+        comments: new FormControl()
+
+    });
+
+  constructor(private fb: FormBuilder) { }
+
+    ngOnInit() {
+        this.leaveForm = this.fb.group({
+        leaveType: "",
+        selectedOption:this.listOfUsers[0],
+        startDate:new Date().toISOString().split('T')[0],
+        endDate: new Date().toISOString().split('T')[0],
+        briefReason: "",
+        backupContact:  "",
+        notifyTo:  "",
+        baseLocation:  "",
+        projectSow: "",
+        subLobTeam: "",
+        leaveStatus: ['Availed'],
+        comments: "",
+        });
+    }
+  
+    today: string = new Date().toISOString().split('T')[0];
+
+
+    listOfUsers = [
+      {id: 1, name: "Polagani Vimala",email:"vimala.polagani@accenture.com"},
+      {id: 2, name: "Bevin John" ,email:"bevin.john@accenture.com"},
+      {id: 3, name: "Logesh" ,email:"logesh.r@accenture.com"},
+      {id: 4, name: "Mark Daniel" ,email:"mark.daniel@accenture.com"},
+   ];
+     leaveOptions = ['Sick Off','Planned Vacation','Unplanned Leave','Floating','Compensatory Off','Bereavement'];
+    //leaveOptions = [{id:1,name:'Sick Off'},{id:1,name:'Planned Vacation'},{id:1,name:'Unplanned Leave'},{id:1,name:'Floating'},{id:1,name:'Compensatory Off'},{id:1,name:'Bereavement'}];
+
+    locations = ['Bengaluru','Chennai','Hyderabad','Ahmedabad','Coimbatore','Gurugram','Kolkata','Mumbai','New Delhi','Noida','Pune','Indore','Jaipur','Other'];
+    projects = ['1136','1286','Yet to onboard','PMO','Leadership'];
+    subLobteams = ['FCT QA','FCT DEV','Mobile QA','Mobile DEV','ECVT QA','ECVT DEV','DPT-QA','DPT-DEV','EPT QA','EPT DEV','PMO','Yet to Onboard','Leadership'];
+    leaveStatus = ['Availed','planned','Cancelled']
+    
+    onSubmit(){
+
+    }
 }

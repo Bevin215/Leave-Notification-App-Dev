@@ -1,127 +1,101 @@
 <div class="container my-5">
-    <div class="card shadow-lg p-4">
-      <div class="card-header text-center">
-        <h5 class="fw-bold">Notify Leave</h5>
-      </div>
-      <div class="card-body">
-        <form>
-          <div class="mb-3">
-            <label for="leaveType" class="form-label"><span class="text-danger">*</span>Leave Type </label>
-            <select id="leaveType" class="form-select" required>
-              <option value="">Select... </option>
-              <option value="sick">Sick Off</option>
-              <option value="planned">Planned Vacation</option>
-              <option value="unplanned">Unplanned Leave</option>
-              <option value="floating">Floating</option>
-              <option value="compensatoryoff">Compensatory Off</option>
-              <option value="bereavement">Bereavement</option>
-              
-            </select>
-          </div>
+  <div class="card shadow-lg p-4">
+    <div class="card-header text-center">
+      <h5 class="fw-bold">Notify Leave</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="leaveType" class="form-label"><span class="text-danger">*</span>Leave Type </label>
+           <select id="leaveType" class="form-select" required formControlName="leaveType"> -->
+          <option value="">Select... </option>
+              <option *ngFor="let type of leaveOptions" [value]="type"
+              >{{ type }}</option>
+           </select>
+          
+                                       
 
-          <div class="mb-3">
-            <label for="availedBy" class="form-label"><span class="text-danger">*</span>Availed By </label>
-            <input type="text" class="form-control" id="availedBy" value="Polagani Vimala">
-          </div>
+        </div>
 
-          <div class="mb-3">
-            <label for="startDate" class="form-label"><span class="text-danger">*</span>Start Date </label>
-            <input type="date" class="form-control" id="startDate" required>
-          </div>
+        <div class="mb-3">
+          <label for="availedBy" class="form-label"><span class="text-danger">*</span>Availed By </label>
+          <select class="form-select" required formControlName="selectedOption">
+            <option *ngFor="let c of listOfUsers" [ngValue]="c">
+              {{ leaveForm.get('selectedOption')?.value?.id === c.id ? c.name : c.name + ', ' + c.email }}
+            </option>
+          </select>
+        </div>
 
-          <div class="mb-3">
-            <label for="endDate" class="form-label"><span class="text-danger">*</span>End Date </label>
-            <input type="date" class="form-control" id="endDate" required>
-          </div>
+        <div class="mb-3">
+          <label for="startDate" class="form-label"><span class="text-danger">*</span>Start Date </label>
+          <input type="date" class="form-control" id="startDate" required formControlName="startDate" [attr.min]="today">
+        </div>
 
-          <div class="mb-3">
-            <label for="briefReason" class="form-label">Brief Reason</label>
-            <textarea class="form-control" id="briefReason" rows="3"></textarea>
-          </div>
+        <div class="mb-3">
+          <label for="endDate" class="form-label"><span class="text-danger">*</span>End Date </label>
+          <input type="date" class="form-control" id="endDate" required formControlName="endDate" [attr.min]="today">
+        </div>
 
-          <div class="mb-3">
-            <label for="backupContact" class="form-label"><span class="text-danger">*</span>Backup Contact(s) </label>
-            <input type="email" class="form-control" id="backupContact" placeholder="Start typing the Email id...">
-          </div>
+        <div class="mb-3">
+          <label for="briefReason" class="form-label">Brief Reason</label>
+          <textarea class="form-control" id="briefReason" rows="3" formControlName="briefReason"></textarea>
+        </div>
 
-          <div class="mb-3">
-            <label for="notifyTo" class="form-label"><span class="text-danger">*</span>Notify To Recipient(s) </label>
-            <input type="email" class="form-control" id="notifyTo" placeholder="Start typing the Email id...">
-          </div>
+        <div class="mb-3">
+          <label for="backupContact" class="form-label"><span class="text-danger">*</span> Contact(s) <span
+              class="small text-muted">(Acc Peer only. If none, add Supervisor)</span></label>
+          <input type="email" class="form-control" id="backupContact" placeholder="Start typing the Email id..."
+            formControlName="backupContact">
+        </div>
 
-        
-          <div class="mb-3">
-            <label for="baseLocation" class="form-label"> <span class="text-danger">*</span>Base Location </label>
-            <select id="baseLocation" class="form-select" required>
-              <option value="">Select...</option>
-              <option value="location1">Bengaluru</option>
-              <option value="location2">Chennai</option>
-              <option value="location3">Hyderabad</option>
-              <option value="location4">Ahmedabad</option>
-              <option value="location5">Coimbatore</option>
-              <option value="location6">Gurugram</option>
-              <option value="location7">Kolkata</option>
-              <option value="location8">Mumbai</option>
-              <option value="location9">New Delhi</option>
-              <option value="location10">Noida</option>
-              <option value="location11">Pune</option>
-              <option value="location12">Indore</option>
-              <option value="location13">Jaipur</option>
-              <option value="location14">Other</option>
-              
-            </select>
-          </div>
+        <div class="mb-3">
+          <label for="notifyTo" class="form-label"><span class="text-danger">*</span>Notify To Recipient(s) <span
+              class="small text-muted">(Must add- Acc Supervisor)</span></label>
+          <input type="email" class="form-control" id="notifyTo" placeholder="Start typing the Email id..."
+            formControlName="notifyTo">
+        </div>
 
-          <div class="mb-3">
-            <label for="projectSow" class="form-label"><span class="text-danger">*</span>Project/SOW </label>
-            <select id="projectSow" class="form-select" required>
-              <option value="">Select...</option>
-              <option value="project1">1136</option>
-              <option value="project2">1286</option>
-              <option value="project3">Yet to onboard</option>
-              <option value="project4">PMO</option>
-              <option value="project5">Leadership</option>
-            </select>
-          </div>
 
-          <div class="mb-3">
-            <label for="subLobTeam" class="form-label"><span class="text-danger">*</span>Sub-LOB/Team </label>
-            <select id="subLobTeam" class="form-select" required>
-              <option value="">Select...</option>
-              <option value="team1">FCT QA</option>
-              <option value="team2">FCT DEV</option>
-              <option value="team3">Mobile QA</option>
-              <option value="team4">Mobile DEV</option>
-              <option value="team5">ECVT QA</option>
-              <option value="team6">ECVT DEV</option>
-              <option value="team7">DPT-QA</option>
-              <option value="team8">DPT-DEV</option>
-              <option value="team9">EPT QA</option>
-              <option value="team10">EPT DEV</option>
-              <option value="team11">PMO</option>
-              <option value="team12">Yet to Onboard</option>
-              <option value="team13">Leadership</option>
-            </select>
-          </div>
+        <div class="mb-3">
+          <label for="baseLocation" class="form-label"> <span class="text-danger">*</span>Base Location </label>
+          <select id="baseLocation" class="form-select" required formControlName="baseLocation">
+            <option value="">Select...</option>
+            <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
+          </select>
+        </div>
 
-          <div class="mb-3">
-            <label for="leaveStatus" class="form-label"> <span class="text-danger">*</span>Leave Status </label>
-            <select id="leaveStatus" class="form-select" required>
-              <option value="">Select...</option>
-              <option value="availed" selected>Availed</option>
-              <option value="planned">Planned</option>
-              <option value="planned">Cancelled</option>
-            </select>
-          </div>
+        <div class="mb-3">
+          <label for="projectSow" class="form-label"><span class="text-danger">*</span>Project/SOW </label>
+          <select id="projectSow" class="form-select" required formControlName="projectSow">
+            <option value="">Select...</option>
+            <option *ngFor="let proj of projects" [value]="proj">{{proj}}</option>
+          </select>
+        </div>
 
-          <div class="mb-3">
-            <label for="comments" class="form-label">Comments</label>
-            <textarea class="form-control" id="comments" rows="3"></textarea>
-          </div>
+        <div class="mb-3">
+          <label for="subLobTeam" class="form-label"><span class="text-danger">*</span>Sub-LOB/Team </label>
+          <select id="subLobTeam" class="form-select" required formControlName="subLobTeam">
+            <option value="">Select...</option>
+            <option *ngFor="let team of subLobteams" [value]="team">{{team}}</option>
+          </select>
+        </div>
 
-          <button type="submit" class="btn btn-primary w-100">Submit</button>
-        </form>
-      </div>
+        <div class="mb-3">
+          <label for="leaveStatus" class="form-label"> <span class="text-danger">*</span>Leave Status <span
+              class="small text-muted">(Pick Planned if start date is in future)</span></label>
+          <select id="leaveStatus" class="form-select" required formControlName="leaveStatus">
+            <option value="">Select...</option>
+            <option *ngFor="let leave of leaveStatus" [value]="leave">{{leave}}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="comments" class="form-label">Comments</label>
+          <textarea class="form-control" id="comments" rows="3" formControlName="comments"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Submit</button>
+      </form>
     </div>
   </div>
-
+</div>
