@@ -1,3 +1,7 @@
+<div *ngIf="!leaveForm.valid && formSubmitted" class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Error!</strong> Please fill in all required fields before submitting the form.
+  <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+</div>
 <div class="page-wrapper my-5">
   <div class="card shadow-lg p-4">
     <div class="card-header text-center">
@@ -5,94 +9,148 @@
     </div>
     <div class="card-body">
       <form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">
-        <div class="mb-3 fw-bold" >
-          <label for="leaveType" class="form-label"><span class="text-danger">*</span>Leave Type </label>
-           <select id="leaveType" class="form-select" required formControlName="leaveType">
-          <option value="">Select... </option>
-              <option *ngFor="let type of leaveOptions" [value]="type"
-              >{{ type }}</option>
-           </select>                   
 
+        <div class="mb-3 fw-bold">
+          <label for="leaveType" class="form-label"><span class="text-danger">*</span>Leave Type </label>
+          <select id="leaveType" class="form-select" required formControlName="leaveType"
+            [ngClass]="{'is-invalid': leaveForm.get('leaveType')?.invalid && leaveForm.get('leaveType')?.touched}">
+            <option value="">Select... </option>
+            <option *ngFor="let type of leaveOptions" [value]="type">{{ type }}</option>
+          </select>
+          <div *ngIf="leaveForm.get('leaveType')?.invalid && leaveForm.get('leaveType')?.touched" class="text-danger">
+            <small *ngIf="leaveForm.get('leaveType')?.hasError('required')">This field is required.</small>
+          </div>
         </div>
 
-        <div class="mb-3 fw-bold" >
+
+
+        <div class="mb-3 fw-bold">
           <label for="availedBy" class="form-label"><span class="text-danger">*</span>Availed By </label>
-          <select class="form-select" required formControlName="selectedOption">
+          <select class="form-select" required formControlName="availedBy"
+            [ngClass]="{'is-invalid': leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched}">
             <option *ngFor="let c of listOfUsers" [ngValue]="c">
-              {{ leaveForm.get('selectedOption')?.value?.id === c.id ? c.name : c.name + ', ' + c.email }}
+              {{ leaveForm.get('availedBy')?.value?.id === c.id ? c.name : c.name + ', ' + c.email }}
             </option>
           </select>
+          <div *ngIf="leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched" class="text-danger">
+            <small *ngIf="leaveForm.get('availedBy')?.hasError('required')">This field is required.</small>
+          </div>
         </div>
 
 
-        <div class="mb-3 fw-bold" >
+        <div class="mb-3 fw-bold">
           <label for="startDate" class="form-label"><span class="text-danger">*</span>Start Date </label>
-          <input type="date" class="form-control" id="startDate" required formControlName="startDate" [attr.min]="today">
+          <input type="date" class="form-control" id="startDate" required formControlName="startDate" [attr.min]="today"
+            [ngClass]="{'is-invalid': leaveForm.get('startDate')?.invalid && leaveForm.get('startDate')?.touched}">
+          <div *ngIf="leaveForm.get('startDate')?.invalid && leaveForm.get('startDate')?.touched" class="text-danger">
+            <small *ngIf="leaveForm.get('startDate')?.hasError('required')">This field is required.</small>
+          </div>
         </div>
 
-        <div class="mb-3 fw-bold" >
+        <div class="mb-3 fw-bold">
           <label for="endDate" class="form-label"><span class="text-danger">*</span>End Date </label>
-          <input type="date" class="form-control" id="endDate" required formControlName="endDate" [attr.min]="leaveForm.get('startDate')?.value"/>
-
+          <input type="date" class="form-control" id="endDate" required formControlName="endDate"
+            [attr.min]="leaveForm.get('endDate')?.value"
+            [ngClass]="{'is-invalid': leaveForm.get('endDate')?.invalid && leaveForm.get('endDate')?.touched}" />
+          <div *ngIf="leaveForm.get('endDate')?.invalid && leaveForm.get('endDate')?.touched" class="text-danger">
+            <small *ngIf="leaveForm.get('endDate')?.hasError('required')">This field is required.</small>
+          </div>
         </div>
 
-        <div class="mb-3 fw-bold" >
+        <div class="mb-3 fw-bold">
           <label for="briefReason" class="form-label">Brief Reason</label>
           <textarea class="form-control" id="briefReason" rows="3" formControlName="briefReason"></textarea>
         </div>
 
-        <div class="mb-3 fw-bold" >
+
+        <div class="mb-3 fw-bold">
           <label for="backupContact" class="form-label"><span class="text-danger">*</span> Contact(s) <span
               class="small text-muted">(Acc Peer only. If none, add Supervisor)</span></label>
-          <input type="email" class="form-control" id="backupContact" placeholder="Start typing the Email id..."
-            formControlName="backupContact">
+          <select class="form-select" required formControlName="backupContact"
+            [ngClass]="{'is-invalid': leaveForm.get('backupContact')?.invalid && leaveForm.get('backupContact')?.touched}">
+            <option value="">Start typing the Email id... </option>
+            <option *ngFor="let c of listOfUsers" [ngValue]="c">
+              {{ leaveForm.get('backupContact')?.value?.id === c.id ? c.name : c.name + ', ' + c.email }}
+            </option>
+          </select>
+          <div *ngIf="leaveForm.get('backupContact')?.invalid && leaveForm.get('backupContact')?.touched"
+            class="text-danger">
+            <small *ngIf="leaveForm.get('backupContact')?.hasError('required')">This field is required.</small>
+          </div>
         </div>
 
-        <div class="mb-3 fw-bold" >
+
+        <div class="mb-3 fw-bold">
           <label for="notifyTo" class="form-label"><span class="text-danger">*</span>Notify To Recipient(s) <span
               class="small text-muted">(Must add- Acc Supervisor)</span></label>
-          <input type="email" class="form-control" id="notifyTo" placeholder="Start typing the Email id..."
-            formControlName="notifyTo">
+          <select class="form-select" required formControlName="notifyTo"
+            [ngClass]="{'is-invalid': leaveForm.get('notifyTo')?.invalid && leaveForm.get('notifyTo')?.touched}">
+            <option value="">Start typing the Email id... </option>
+            <option *ngFor="let c of listOfUsers" [ngValue]="c">
+              {{ leaveForm.get('notifyTo')?.value?.id === c.id ? c.name : c.name + ', ' + c.email }}
+            </option>
+          </select>
+          <div *ngIf="leaveForm.get('notifyTo')?.invalid && leaveForm.get('notifyTo')?.touched" class="text-danger">
+            <small *ngIf="leaveForm.get('notifyTo')?.hasError('required')">This field is required.</small>
+          </div>
         </div>
 
 
         <div class="mb-3 fw-bold">
           <label for="baseLocation" class="form-label"> <span class="text-danger">*</span>Base Location </label>
-          <select id="baseLocation" class="form-select" required formControlName="baseLocation">
+          <select id="baseLocation" class="form-select" required formControlName="baseLocation"
+            [ngClass]="{'is-invalid': leaveForm.get('baseLocation')?.invalid && leaveForm.get('baseLocation')?.touched}">
             <option value="">Select...</option>
             <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
           </select>
+          <div *ngIf="leaveForm.get('baseLocation')?.invalid && leaveForm.get('baseLocation')?.touched"
+            class="text-danger">
+            <small *ngIf="leaveForm.get('baseLocation')?.hasError('required')">This field is required.</small>
+          </div>
         </div>
 
-        <div class="mb-3 fw-bold" >
+        <div class="mb-3 fw-bold">
           <label for="projectSow" class="form-label"><span class="text-danger">*</span>Project/SOW </label>
-          <select id="projectSow" class="form-select" required formControlName="projectSow">
+          <select id="projectSow" class="form-select" required formControlName="projectSow"
+            [ngClass]="{'is-invalid': leaveForm.get('projectSow')?.invalid && leaveForm.get('projectSow')?.touched}">
             <option value="">Select...</option>
             <option *ngFor="let proj of projects" [value]="proj">{{proj}}</option>
           </select>
+          <div *ngIf="leaveForm.get('projectSow')?.invalid && leaveForm.get('projectSow')?.touched" class="text-danger">
+            <small *ngIf="leaveForm.get('projectSow')?.hasError('required')">This field is required.</small>
+          </div>
         </div>
 
-        <div class="mb-3 fw-bold" >
+        <div class="mb-3 fw-bold">
           <label for="subLobTeam" class="form-label"><span class="text-danger">*</span>Sub-LOB/Team </label>
-          <select id="subLobTeam" class="form-select" required formControlName="subLobTeam">
+          <select id="subLobTeam" class="form-select" required formControlName="subLobTeam"
+            [ngClass]="{'is-invalid': leaveForm.get('subLobTeam')?.invalid && leaveForm.get('subLobTeam')?.touched}">
             <option value="">Select...</option>
             <option *ngFor="let team of subLobteams" [value]="team">{{team}}</option>
           </select>
+          <div *ngIf="leaveForm.get('subLobTeam')?.invalid && leaveForm.get('subLobTeam')?.touched" class="text-danger">
+            <small *ngIf="leaveForm.get('subLobTeam')?.hasError('required')">This field is required.</small>
+          </div>
         </div>
 
         <div class="mb-3 fw-bold">
           <label for="leaveStatus" class="form-label"> <span class="text-danger">*</span>Leave Status <span
               class="small text-muted">(Pick Planned if start date is in future)</span></label>
-          <select id="leaveStatus" class="form-select" required formControlName="leaveStatus">
+          <select id="leaveStatus" class="form-select" required formControlName="leaveStatus"
+            [ngClass]="{'is-invalid': leaveForm.get('leaveStatus')?.invalid && leaveForm.get('leaveStatus')?.touched}">
             <option value="">Select...</option>
             <option *ngFor="let leave of leaveStatus" [value]="leave">{{leave}}</option>
           </select>
+          <div *ngIf="leaveForm.get('leaveStatus')?.invalid && leaveForm.get('leaveStatus')?.touched"
+            class="text-danger">
+            <small *ngIf="leaveForm.get('leaveStatus')?.hasError('required')">This field is required.</small>
+          </div>
         </div>
 
-        <div class="mb-3 fw-bold" >
+        <div class="mb-3 fw-bold">
           <div class="col-sm-8">
-          <label for="comments" class="form-label">Comments</label>
-          <textarea class="form-control" id="comments" rows="3" formControlName="comments"></textarea>
+            <label for="comments" class="form-label">Comments</label>
+            <textarea class="form-control" id="comments" rows="3" formControlName="comments"></textarea>
           </div>
         </div>
 
