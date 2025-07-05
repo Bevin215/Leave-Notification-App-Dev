@@ -17,7 +17,7 @@ export interface listOfUsers {
 export class NotifyleaveComponent {
 leaveForm = new FormGroup({
         leaveType: new FormControl(),
-        selectedOption: new FormControl(),
+        availedBy: new FormControl(),
         startDate: new FormControl(),
         endDate: new FormControl(),
         briefReason: new FormControl(),
@@ -30,13 +30,14 @@ leaveForm = new FormGroup({
         comments: new FormControl()
 
     });
+ 
 
   constructor(private fb: FormBuilder) { }
 
     ngOnInit() {
         this.leaveForm = this.fb.group({
-        leaveType: "",
-        selectedOption:this.listOfUsers[0],
+        leaveType: ['', Validators.required],
+        availedBy:this.listOfUsers[0],
         startDate:new Date().toISOString().split('T')[0],
         endDate: new Date().toISOString().split('T')[0],
         briefReason: "",
@@ -67,7 +68,22 @@ leaveForm = new FormGroup({
     subLobteams = ['FCT QA','FCT DEV','Mobile QA','Mobile DEV','ECVT QA','ECVT DEV','DPT-QA','DPT-DEV','EPT QA','EPT DEV','PMO','Yet to Onboard','Leadership'];
     leaveStatus = ['Availed','planned','Cancelled']
     
-    onSubmit(){
+    formSubmitted= false;
+    showAlert = false;
 
+    onSubmit() {
+    this.leaveForm.markAllAsTouched();
+    this.formSubmitted = true;
+    
+
+    if (this.leaveForm.valid) {
+      console.log('Form Submitted', this.leaveForm.value);
+    } else {
+      console.log('Form is not valid!');
+      this.showAlert = true;
     }
+  }
+   closeAlert() {
+    this.formSubmitted = false;
+  }
 }
