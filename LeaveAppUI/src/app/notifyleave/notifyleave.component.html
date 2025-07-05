@@ -1,23 +1,21 @@
-<div class="container my-5">
+<div class="page-wrapper my-5">
   <div class="card shadow-lg p-4">
     <div class="card-header text-center">
-      <h5 class="fw-bold">Notify Leave</h5>
+      <h5 style="background-color:black; color: white;">Notify Leave</h5>
     </div>
     <div class="card-body">
       <form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">
-        <div class="mb-3">
+        <div class="mb-3 fw-bold" >
           <label for="leaveType" class="form-label"><span class="text-danger">*</span>Leave Type </label>
-           <select id="leaveType" class="form-select" required formControlName="leaveType"> -->
+           <select id="leaveType" class="form-select" required formControlName="leaveType">
           <option value="">Select... </option>
               <option *ngFor="let type of leaveOptions" [value]="type"
               >{{ type }}</option>
-           </select>
-          
-                                       
+           </select>                   
 
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 fw-bold" >
           <label for="availedBy" class="form-label"><span class="text-danger">*</span>Availed By </label>
           <select class="form-select" required formControlName="selectedOption">
             <option *ngFor="let c of listOfUsers" [ngValue]="c">
@@ -26,29 +24,31 @@
           </select>
         </div>
 
-        <div class="mb-3">
+
+        <div class="mb-3 fw-bold" >
           <label for="startDate" class="form-label"><span class="text-danger">*</span>Start Date </label>
           <input type="date" class="form-control" id="startDate" required formControlName="startDate" [attr.min]="today">
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 fw-bold" >
           <label for="endDate" class="form-label"><span class="text-danger">*</span>End Date </label>
-          <input type="date" class="form-control" id="endDate" required formControlName="endDate" [attr.min]="today">
+          <input type="date" class="form-control" id="endDate" required formControlName="endDate" [attr.min]="leaveForm.get('startDate')?.value"/>
+
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 fw-bold" >
           <label for="briefReason" class="form-label">Brief Reason</label>
           <textarea class="form-control" id="briefReason" rows="3" formControlName="briefReason"></textarea>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 fw-bold" >
           <label for="backupContact" class="form-label"><span class="text-danger">*</span> Contact(s) <span
               class="small text-muted">(Acc Peer only. If none, add Supervisor)</span></label>
           <input type="email" class="form-control" id="backupContact" placeholder="Start typing the Email id..."
             formControlName="backupContact">
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 fw-bold" >
           <label for="notifyTo" class="form-label"><span class="text-danger">*</span>Notify To Recipient(s) <span
               class="small text-muted">(Must add- Acc Supervisor)</span></label>
           <input type="email" class="form-control" id="notifyTo" placeholder="Start typing the Email id..."
@@ -56,7 +56,7 @@
         </div>
 
 
-        <div class="mb-3">
+        <div class="mb-3 fw-bold">
           <label for="baseLocation" class="form-label"> <span class="text-danger">*</span>Base Location </label>
           <select id="baseLocation" class="form-select" required formControlName="baseLocation">
             <option value="">Select...</option>
@@ -64,7 +64,7 @@
           </select>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 fw-bold" >
           <label for="projectSow" class="form-label"><span class="text-danger">*</span>Project/SOW </label>
           <select id="projectSow" class="form-select" required formControlName="projectSow">
             <option value="">Select...</option>
@@ -72,7 +72,7 @@
           </select>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 fw-bold" >
           <label for="subLobTeam" class="form-label"><span class="text-danger">*</span>Sub-LOB/Team </label>
           <select id="subLobTeam" class="form-select" required formControlName="subLobTeam">
             <option value="">Select...</option>
@@ -80,7 +80,7 @@
           </select>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 fw-bold">
           <label for="leaveStatus" class="form-label"> <span class="text-danger">*</span>Leave Status <span
               class="small text-muted">(Pick Planned if start date is in future)</span></label>
           <select id="leaveStatus" class="form-select" required formControlName="leaveStatus">
@@ -89,12 +89,14 @@
           </select>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 fw-bold" >
+          <div class="col-sm-8">
           <label for="comments" class="form-label">Comments</label>
           <textarea class="form-control" id="comments" rows="3" formControlName="comments"></textarea>
+          </div>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100">Submit</button>
+        <button class="btn btn-dark" type="submit">Submit</button>
       </form>
     </div>
   </div>
