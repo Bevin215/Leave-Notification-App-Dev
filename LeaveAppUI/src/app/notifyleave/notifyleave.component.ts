@@ -44,7 +44,7 @@ export class NotifyleaveComponent {
       endDate: new Date().toISOString().split('T')[0],
       briefReason: "",
       backupContact: [[], Validators.required],
-      notifyTo: "",
+      notifyTo: [[], Validators.required],
       baseLocation: "",
       projectSow: "",
       subLobTeam: "",
