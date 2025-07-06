@@ -26,12 +26,14 @@
 
         <div class="mb-3 fw-bold">
           <label for="availedBy" class="form-label"><span class="text-danger">*</span>Availed By </label>
-          <select class="form-select" required formControlName="availedBy"
-            [ngClass]="{'is-invalid': leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched}">
-            <option *ngFor="let c of listOfUsers" [ngValue]="c">
-              {{ leaveForm.get('availedBy')?.value?.id === c.id ? c.name : c.name + ', ' + c.email }}
-            </option>
-          </select>
+          <ng-select [items]="listOfUsers" bindLabel="name" placeholder="Start typing the Email id..."
+            formControlName="availedBy" [searchable]="true" [clearable]="true" [ngClass]="{
+    'is-invalid': leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched
+  }">
+            <ng-template ng-option-tmp let-item="item">
+              {{ item.name }} — {{ item.email }}
+            </ng-template>
+          </ng-select>
           <div *ngIf="leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched" class="text-danger">
             <small *ngIf="leaveForm.get('availedBy')?.hasError('required')">This field is required.</small>
           </div>
@@ -61,7 +63,7 @@
           <label for="briefReason" class="form-label">Brief Reason</label>
           <textarea class="form-control" id="briefReason" rows="3" formControlName="briefReason"></textarea>
         </div>
-        
+
         <div class="mb-3  ">
           <label for="backupContact" class="form-label"><span class="text-danger">*</span> Contact(s) <span
               class="small text-muted">(Acc Peer only. If none, add Supervisor)</span></label>
@@ -90,7 +92,7 @@
             placeholder='Start typing the Email id...' formControlName="notifyTo" [closeOnSelect]="false"
             [searchable]="true" [clearable]="true" (change)="onNotifyChange()" [ngClass]="{
       'is-invalid': leaveForm.get('notifyTo')?.invalid && leaveForm.get('notifyTo')?.touched
-    }" >
+    }">
           </ng-select>
           <ng-template ng-option-tmp let-item="item">
             {{ item.name }} — {{ item.email }}

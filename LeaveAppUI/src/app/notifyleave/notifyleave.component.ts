@@ -33,13 +33,25 @@ export class NotifyleaveComponent {
 
   });
 
+ listOfUsers = [
+    { id: 1, name: "Polagani Vimala", email: "vimala.polagani@accenture.com" },
+    { id: 2, name: "Bevin John", email: "bevin.john@accenture.com" },
+    { id: 3, name: "Logesh", email: "logesh.r@accenture.com" },
+    { id: 4, name: "Mark Daniel", email: "mark.daniel@accenture.com" },
+  ];
+  leaveOptions = ['Sick Off', 'Planned Vacation', 'Unplanned Leave', 'Floating', 'Compensatory Off', 'Bereavement'];
+  //leaveOptions = [{id:1,name:'Sick Off'},{id:1,name:'Planned Vacation'},{id:1,name:'Unplanned Leave'},{id:1,name:'Floating'},{id:1,name:'Compensatory Off'},{id:1,name:'Bereavement'}];
 
+  locations = ['Bengaluru', 'Chennai', 'Hyderabad', 'Ahmedabad', 'Coimbatore', 'Gurugram', 'Kolkata', 'Mumbai', 'New Delhi', 'Noida', 'Pune', 'Indore', 'Jaipur', 'Other'];
+  projects = ['1136', '1286', 'Yet to onboard', 'PMO', 'Leadership'];
+  subLobteams = ['FCT QA', 'FCT DEV', 'Mobile QA', 'Mobile DEV', 'ECVT QA', 'ECVT DEV', 'DPT-QA', 'DPT-DEV', 'EPT QA', 'EPT DEV', 'PMO', 'Yet to Onboard', 'Leadership'];
+  leaveStatus = ['Availed', 'planned', 'Cancelled']
   constructor(private fb: FormBuilder,private router: Router) { }
 
   ngOnInit() {
     this.leaveForm = this.fb.group({
       leaveType: ['', Validators.required],
-      availedBy: this.listOfUsers[0],
+      availedBy: [this.listOfUsers[1], Validators.required],
       startDate: new Date().toISOString().split('T')[0],
       endDate: new Date().toISOString().split('T')[0],
       briefReason: "",
@@ -56,19 +68,7 @@ export class NotifyleaveComponent {
   today: string = new Date().toISOString().split('T')[0];
 
 
-  listOfUsers = [
-    { id: 1, name: "Polagani Vimala", email: "vimala.polagani@accenture.com" },
-    { id: 2, name: "Bevin John", email: "bevin.john@accenture.com" },
-    { id: 3, name: "Logesh", email: "logesh.r@accenture.com" },
-    { id: 4, name: "Mark Daniel", email: "mark.daniel@accenture.com" },
-  ];
-  leaveOptions = ['Sick Off', 'Planned Vacation', 'Unplanned Leave', 'Floating', 'Compensatory Off', 'Bereavement'];
-  //leaveOptions = [{id:1,name:'Sick Off'},{id:1,name:'Planned Vacation'},{id:1,name:'Unplanned Leave'},{id:1,name:'Floating'},{id:1,name:'Compensatory Off'},{id:1,name:'Bereavement'}];
-
-  locations = ['Bengaluru', 'Chennai', 'Hyderabad', 'Ahmedabad', 'Coimbatore', 'Gurugram', 'Kolkata', 'Mumbai', 'New Delhi', 'Noida', 'Pune', 'Indore', 'Jaipur', 'Other'];
-  projects = ['1136', '1286', 'Yet to onboard', 'PMO', 'Leadership'];
-  subLobteams = ['FCT QA', 'FCT DEV', 'Mobile QA', 'Mobile DEV', 'ECVT QA', 'ECVT DEV', 'DPT-QA', 'DPT-DEV', 'EPT QA', 'EPT DEV', 'PMO', 'Yet to Onboard', 'Leadership'];
-  leaveStatus = ['Availed', 'planned', 'Cancelled']
+ 
 
   formSubmitted = false;
   showAlert = false;
@@ -83,6 +83,8 @@ export class NotifyleaveComponent {
       console.log('Form is not valid!');
       this.showAlert = true;
     }
+    console.log("Default selected user:", this.leaveForm.get('availedBy')?.value);
+
 
   }
   closeAlert() {
@@ -99,4 +101,5 @@ onNotifyChange() {
 onBackupChange() {
   this.backupSelect.searchTerm = '';
  }
+ 
 }
