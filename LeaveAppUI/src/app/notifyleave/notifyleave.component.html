@@ -52,7 +52,7 @@
         <div class="mb-3 fw-bold">
           <label for="endDate" class="form-label"><span class="text-danger">*</span>End Date </label>
           <input type="date" class="form-control" id="endDate" required formControlName="endDate"
-            [attr.min]="leaveForm.get('endDate')?.value"
+            [attr.min]="leaveForm.get('startDate')?.value" 
             [ngClass]="{'is-invalid': leaveForm.get('endDate')?.invalid && leaveForm.get('endDate')?.touched}" />
           <div *ngIf="leaveForm.get('endDate')?.invalid && leaveForm.get('endDate')?.touched" class="text-danger">
             <small *ngIf="leaveForm.get('endDate')?.hasError('required')">This field is required.</small>
