@@ -26,12 +26,6 @@
 
         <div class="mb-3 fw-bold">
           <label for="availedBy" class="form-label"><span class="text-danger">*</span>Availed By </label>
-          <!-- <select class="form-select" required formControlName="availedBy"
-            [ngClass]="{'is-invalid': leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched}">
-            <option *ngFor="let c of listOfUsers" [ngValue]="c">
-              {{ leaveForm.get('availedBy')?.value?.id === c.id ? c.name : c.name + ', ' + c.email }}
-            </option>
-          </select> -->
           <ng-select [items]="listOfUsers" bindLabel="name" placeholder="Start typing the Email id..."
             formControlName="availedBy" [searchable]="true" [clearable]="true" [ngClass]="{
     'is-invalid': leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched
