@@ -61,22 +61,20 @@
           <label for="briefReason" class="form-label">Brief Reason</label>
           <textarea class="form-control" id="briefReason" rows="3" formControlName="briefReason"></textarea>
         </div>
-
-
-        <div class="mb-3 fw-bold ">
+        
+        <div class="mb-3  ">
           <label for="backupContact" class="form-label"><span class="text-danger">*</span> Contact(s) <span
               class="small text-muted">(Acc Peer only. If none, add Supervisor)</span></label>
           <ng-select #backup [items]="listOfUsers" bindLabel="email" bindValue="id" [multiple]="true"
-            placeholder='Start typing the Email id...'
-            formControlName="backupContact" [closeOnSelect]="false" [searchable]="true" [clearable]="true"
-            (change)="onBackupChange()" [ngClass]="{
-      'is-invalid': leaveForm.get('backupContact')?.invalid && leaveForm.get('backupContact')?.touched
-    }" class="form-select">
-    </ng-select>
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.name }} — {{ item.email }}
-            </ng-template>
-          
+            placeholder="Start typing the Email id..." formControlName="backupContact" [closeOnSelect]="false"
+            [searchable]="true" [clearable]="true" (change)="onBackupChange()" [ngClass]="{
+    'is-invalid': leaveForm.get('backupContact')?.invalid && leaveForm.get('backupContact')?.touched
+  }">
+          </ng-select>
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.name }} — {{ item.email }}
+          </ng-template>
+
           <div *ngIf="leaveForm.get('backupContact')?.invalid && leaveForm.get('backupContact')?.touched"
             class="text-danger">
             <small *ngIf="leaveForm.get('backupContact')?.hasError('required')">This field is required.</small>
@@ -84,21 +82,20 @@
         </div>
 
 
-        <div class="mb-3 fw-bold">
+        <div class="mb-3 ">
           <label for="notifyTo" class="form-label"><span class="text-danger">*</span>Notify To Recipient(s) <span
               class="small text-muted">(Must add- Acc Supervisor)</span></label>
-          
+
           <ng-select #notify [items]="listOfUsers" bindLabel="email" bindValue="id" [multiple]="true"
-            placeholder='Start typing the Email id...'
-            formControlName="notifyTo" [closeOnSelect]="false" [searchable]="true" [clearable]="true"
-            (change)="onNotifyChange()" [ngClass]="{
+            placeholder='Start typing the Email id...' formControlName="notifyTo" [closeOnSelect]="false"
+            [searchable]="true" [clearable]="true" (change)="onNotifyChange()" [ngClass]="{
       'is-invalid': leaveForm.get('notifyTo')?.invalid && leaveForm.get('notifyTo')?.touched
-    }" class="form-select">
-    </ng-select>
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.name }} — {{ item.email }}
-            </ng-template>
-          
+    }" >
+          </ng-select>
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.name }} — {{ item.email }}
+          </ng-template>
+
           <div *ngIf="leaveForm.get('notifyTo')?.invalid && leaveForm.get('notifyTo')?.touched" class="text-danger">
             <small *ngIf="leaveForm.get('notifyTo')?.hasError('required')">This field is required.</small>
           </div>
