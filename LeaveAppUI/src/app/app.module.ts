@@ -7,20 +7,23 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { NotifyleaveComponent } from './notifyleave/notifyleave.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormSubmittedComponent } from './form-submitted/form-submitted.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
-    NotifyleaveComponent
+    NotifyleaveComponent,
+    FormSubmittedComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

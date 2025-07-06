@@ -63,16 +63,20 @@
         </div>
 
 
-        <div class="mb-3 fw-bold">
+        <div class="mb-3 fw-bold ">
           <label for="backupContact" class="form-label"><span class="text-danger">*</span> Contact(s) <span
               class="small text-muted">(Acc Peer only. If none, add Supervisor)</span></label>
-          <select class="form-select" required formControlName="backupContact"
-            [ngClass]="{'is-invalid': leaveForm.get('backupContact')?.invalid && leaveForm.get('backupContact')?.touched}">
-            <option value="">Start typing the Email id... </option>
-            <option *ngFor="let c of listOfUsers" [ngValue]="c">
-              {{ leaveForm.get('backupContact')?.value?.id === c.id ? c.name : c.name + ', ' + c.email }}
-            </option>
-          </select>
+          <ng-select #backup [items]="listOfUsers" bindLabel="email" bindValue="id" [multiple]="true"
+            placeholder='Start typing the Email id...'
+            formControlName="backupContact" [closeOnSelect]="false" [searchable]="true" [clearable]="true"
+            (change)="onBackupChange()" [ngClass]="{
+      'is-invalid': leaveForm.get('backupContact')?.invalid && leaveForm.get('backupContact')?.touched
+    }" class="form-select">
+    </ng-select>
+            <ng-template ng-option-tmp let-item="item">
+              {{ item.name }} — {{ item.email }}
+            </ng-template>
+          
           <div *ngIf="leaveForm.get('backupContact')?.invalid && leaveForm.get('backupContact')?.touched"
             class="text-danger">
             <small *ngIf="leaveForm.get('backupContact')?.hasError('required')">This field is required.</small>
@@ -83,13 +87,18 @@
         <div class="mb-3 fw-bold">
           <label for="notifyTo" class="form-label"><span class="text-danger">*</span>Notify To Recipient(s) <span
               class="small text-muted">(Must add- Acc Supervisor)</span></label>
-          <select class="form-select" required formControlName="notifyTo"
-            [ngClass]="{'is-invalid': leaveForm.get('notifyTo')?.invalid && leaveForm.get('notifyTo')?.touched}">
-            <option value="">Start typing the Email id... </option>
-            <option *ngFor="let c of listOfUsers" [ngValue]="c">
-              {{ leaveForm.get('notifyTo')?.value?.id === c.id ? c.name : c.name + ', ' + c.email }}
-            </option>
-          </select>
+          
+          <ng-select #notify [items]="listOfUsers" bindLabel="email" bindValue="id" [multiple]="true"
+            placeholder='Start typing the Email id...'
+            formControlName="notifyTo" [closeOnSelect]="false" [searchable]="true" [clearable]="true"
+            (change)="onNotifyChange()" [ngClass]="{
+      'is-invalid': leaveForm.get('notifyTo')?.invalid && leaveForm.get('notifyTo')?.touched
+    }" class="form-select">
+    </ng-select>
+            <ng-template ng-option-tmp let-item="item">
+              {{ item.name }} — {{ item.email }}
+            </ng-template>
+          
           <div *ngIf="leaveForm.get('notifyTo')?.invalid && leaveForm.get('notifyTo')?.touched" class="text-danger">
             <small *ngIf="leaveForm.get('notifyTo')?.hasError('required')">This field is required.</small>
           </div>
