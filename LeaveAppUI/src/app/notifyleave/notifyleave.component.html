@@ -52,20 +52,23 @@
         <div class="mb-3 fw-bold">
           <label for="endDate" class="form-label"><span class="text-danger">*</span>End Date </label>
           <input type="date" class="form-control" id="endDate" required formControlName="endDate"
-            [attr.min]="leaveForm.get('startDate')?.value" 
+            [attr.min]="leaveForm.get('startDate')?.value"
             [ngClass]="{'is-invalid': leaveForm.get('endDate')?.invalid && leaveForm.get('endDate')?.touched}" />
           <div *ngIf="leaveForm.get('endDate')?.invalid && leaveForm.get('endDate')?.touched" class="text-danger">
             <small *ngIf="leaveForm.get('endDate')?.hasError('required')">This field is required.</small>
+          </div>
+          <div *ngIf="leaveForm.hasError('invalidDateRange') && leaveForm.touched" class="text-danger">
+            <small>End date cannot be earlier than start date.</small>
           </div>
         </div>
 
         <div class="mb-3 fw-bold">
           <label for="briefReason" class="form-label">Brief Reason</label>
-          <textarea class="form-control" id="briefReason" rows="3" formControlName="briefReason"></textarea>
+          <textarea placeholder="Enter brief reason..." class="form-control" id="briefReason" rows="3" formControlName="briefReason"></textarea>
         </div>
 
         <div class="mb-3  ">
-          <label for="backupContact" class="form-label"><span class="text-danger">*</span> Contact(s) <span
+          <label for="backupContact" class="form-label fw-bold"><span class="text-danger ">*</span> Contact(s) <span
               class="small text-muted">(Acc Peer only. If none, add Supervisor)</span></label>
           <ng-select #backup [items]="listOfUsers" bindLabel="email" bindValue="id" [multiple]="true"
             placeholder="Start typing the Email id..." formControlName="backupContact" [closeOnSelect]="false"
@@ -79,13 +82,14 @@
 
           <div *ngIf="leaveForm.get('backupContact')?.invalid && leaveForm.get('backupContact')?.touched"
             class="text-danger">
-            <small class="fw-bold" *ngIf="leaveForm.get('backupContact')?.hasError('required')">This field is required.</small>
+            <small class="fw-bold" *ngIf="leaveForm.get('backupContact')?.hasError('required')">This field is
+              required.</small>
           </div>
         </div>
 
 
         <div class="mb-3 ">
-          <label for="notifyTo" class="form-label"><span class="text-danger">*</span>Notify To Recipient(s) <span
+          <label for="notifyTo" class="form-label fw-bold"><span class="text-danger">*</span>Notify To Recipient(s) <span
               class="small text-muted">(Must add- Acc Supervisor)</span></label>
 
           <ng-select #notify [items]="listOfUsers" bindLabel="email" bindValue="id" [multiple]="true"
@@ -99,7 +103,8 @@
           </ng-template>
 
           <div *ngIf="leaveForm.get('notifyTo')?.invalid && leaveForm.get('notifyTo')?.touched" class="text-danger">
-            <small class="fw-bold" *ngIf="leaveForm.get('notifyTo')?.hasError('required')">This field is required.</small>
+            <small class="fw-bold" *ngIf="leaveForm.get('notifyTo')?.hasError('required')">This field is
+              required.</small>
           </div>
         </div>
 
@@ -158,7 +163,7 @@
         <div class="mb-3 fw-bold">
           <div class="col-sm-8">
             <label for="comments" class="form-label">Comments</label>
-            <textarea class="form-control" id="comments" rows="3" formControlName="comments"></textarea>
+            <textarea placeholder="Enter your comments..." class="form-control" id="comments" rows="3" formControlName="comments"></textarea>
           </div>
         </div>
 
