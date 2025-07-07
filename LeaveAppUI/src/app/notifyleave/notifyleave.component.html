@@ -79,7 +79,7 @@
 
           <div *ngIf="leaveForm.get('backupContact')?.invalid && leaveForm.get('backupContact')?.touched"
             class="text-danger">
-            <small *ngIf="leaveForm.get('backupContact')?.hasError('required')">This field is required.</small>
+            <small class="fw-bold" *ngIf="leaveForm.get('backupContact')?.hasError('required')">This field is required.</small>
           </div>
         </div>
 
@@ -99,7 +99,7 @@
           </ng-template>
 
           <div *ngIf="leaveForm.get('notifyTo')?.invalid && leaveForm.get('notifyTo')?.touched" class="text-danger">
-            <small *ngIf="leaveForm.get('notifyTo')?.hasError('required')">This field is required.</small>
+            <small class="fw-bold" *ngIf="leaveForm.get('notifyTo')?.hasError('required')">This field is required.</small>
           </div>
         </div>
 
