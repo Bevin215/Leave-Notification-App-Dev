@@ -60,17 +60,17 @@ export class NotifyleaveComponent {
 
   ngOnInit() {
     this.leaveForm = this.fb.group({
-      leaveType: ['', Validators.required],
+      leaveType: [null, Validators.required],
       availedBy: [this.listOfUsers[1], Validators.required],
       startDate: [new Date().toISOString().split('T')[0], Validators.required],
       endDate: [new Date().toISOString().split('T')[0], Validators.required],
       briefReason: "",
       backupContact: [[], Validators.required],
       notifyTo: [[], Validators.required],
-      baseLocation: "",
-      projectSow: "",
-      subLobTeam: "",
-      leaveStatus: ['Availed'],
+      baseLocation: [null, Validators.required],
+      projectSow: [null, Validators.required],
+      subLobTeam: [null, Validators.required],
+      leaveStatus: ['Availed', Validators.required],
       comments: "",
     },
   { validators: this.dateRangeValidator });
