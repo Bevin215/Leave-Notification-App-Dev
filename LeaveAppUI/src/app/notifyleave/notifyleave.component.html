@@ -21,10 +21,18 @@
           </div>
         </div>
 
+
+
         <div class="mb-3 fw-bold">
           <label for="availedBy" class="form-label"><span class="text-danger">*</span>Availed By </label>
-          <input type="text" class="form-control" [value]="
-           leaveForm.get('availedBy')?.value?.name" readonly />
+          <ng-select [items]="listOfUsers" bindLabel="name" placeholder="Start typing the Email id..."
+            formControlName="availedBy" [searchable]="true" [clearable]="true" [ngClass]="{
+    'is-invalid': leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched
+  }">
+            <ng-template ng-option-tmp let-item="item">
+              {{ item.name }} — {{ item.email }}
+            </ng-template>
+          </ng-select>
           <div *ngIf="leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched" class="text-danger">
             <small *ngIf="leaveForm.get('availedBy')?.hasError('required')">This field is required.</small>
           </div>
@@ -65,8 +73,8 @@
         </div>
 
         <div class="mb-3  ">
-          <label for="backupContact" class="form-label fw-bold"><span class="text-danger ">*</span>Backup Contact(s)
-            <span class="small text-muted">(Acc Peer only. If none, add Supervisor)</span></label>
+          <label for="backupContact" class="form-label fw-bold"><span class="text-danger ">*</span>Backup Contact(s) <span
+              class="small text-muted">(Acc Peer only. If none, add Supervisor)</span></label>
           <ng-select #backup [items]="listOfUsers" bindLabel="email" bindValue="id" [multiple]="true"
             placeholder="Start typing the Email id..." formControlName="backupContact" [closeOnSelect]="false"
             [searchable]="true" [clearable]="true" (change)="onBackupChange()" [ngClass]="{
