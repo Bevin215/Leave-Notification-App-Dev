@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgSelectComponent } from '@ng-select/ng-select';
 
@@ -48,6 +48,20 @@ export class NotifyleaveComponent {
   leaveStatus = ['Availed', 'planned', 'Cancelled']
   constructor(private fb: FormBuilder,private router: Router) { }
 
+  minStartDateValidator(control: AbstractControl): ValidationErrors | null {
+  const start = control.get('startDate')?.value;
+  if (start) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const startDate = new Date(start);
+    if (startDate < today) {
+      return { startDateInPast: true };
+    }
+  }
+  return null;
+}
+
+
  dateRangeValidator(control: AbstractControl): ValidationErrors | null {
   const start = control.get('startDate')?.value;
   const end = control.get('endDate')?.value;
@@ -73,7 +87,7 @@ export class NotifyleaveComponent {
       leaveStatus: ['Availed', Validators.required],
       comments: "",
     },
-  { validators: this.dateRangeValidator });
+  { validators: [this.dateRangeValidator, this.minStartDateValidator] });
   }
 
   today: string = new Date().toISOString().split('T')[0];
