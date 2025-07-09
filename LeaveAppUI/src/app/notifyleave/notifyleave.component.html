@@ -42,9 +42,15 @@
         <div class="mb-3 fw-bold">
           <label for="startDate" class="form-label"><span class="text-danger">*</span>Start Date </label>
           <input type="date" class="form-control" id="startDate" required formControlName="startDate" [attr.min]="today"
-            [ngClass]="{'is-invalid': leaveForm.get('startDate')?.invalid && leaveForm.get('startDate')?.touched}">
+            [ngClass]="{
+      'is-invalid': leaveForm.get('startDate')?.invalid && leaveForm.get('startDate')?.touched
+                  || leaveForm.hasError('startDateInPast') && leaveForm.get('startDate')?.touched
+    }">
           <div *ngIf="leaveForm.get('startDate')?.invalid && leaveForm.get('startDate')?.touched" class="text-danger">
             <small *ngIf="leaveForm.get('startDate')?.hasError('required')">This field is required.</small>
+          </div>
+          <div *ngIf="leaveForm.hasError('startDateInPast') && leaveForm.get('startDate')?.touched" class="text-danger">
+            <small>Start date cannot be in the past.</small>
           </div>
         </div>
 
