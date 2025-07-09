@@ -13,7 +13,7 @@
 
         <div class="mb-3 fw-bold">
           <label for="leaveType" class="form-label"><span class="text-danger">*</span>Leave Type </label>
-          <ng-select [items]="leaveOptions" placeholder="Select..." formControlName="leaveType"
+          <ng-select [items]="leaveOptions" placeholder="Select Leave Type" formControlName="leaveType"
             [class.is-invalid]="leaveForm.get('leaveType')?.invalid && leaveForm.get('leaveType')?.touched"
             [searchable]="true">
           </ng-select>
@@ -26,7 +26,7 @@
 
         <div class="mb-3 fw-bold">
           <label for="availedBy" class="form-label"><span class="text-danger">*</span>Availed By </label>
-          <ng-select [items]="listOfUsers" bindLabel="name" placeholder="Start typing the Email id..."
+          <ng-select [items]="listOfUsers" bindLabel="name" placeholder="Enter Username"
             formControlName="availedBy" [searchable]="true" [clearable]="true" [ngClass]="{
     'is-invalid': leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched
   }">
@@ -68,16 +68,37 @@
         </div>
 
         <div class="mb-3 fw-bold">
-          <label for="briefReason" class="form-label">Brief Reason</label>
-          <textarea placeholder="Enter brief reason..." class="form-control" id="briefReason" rows="3"
-            formControlName="briefReason"></textarea>
-        </div>
+  <label for="briefReason" class="form-label">Brief Reason</label>
+  <textarea
+    placeholder="Enter brief reason..."
+    class="form-control"
+    id="briefReason"
+    rows="3"
+    formControlName="briefReason"
+    (input)="onBriefReasonInput()"
+    maxlength="100">
+  </textarea>
+
+  <div class="text-end small text-muted mt-1">
+    {{ briefReasonLength }}/100characters
+  </div>
+
+
+  <div *ngIf="leaveForm.get('briefReason')?.touched && leaveForm.get('briefReason')?.invalid" class="text-danger small">
+    <div *ngIf="leaveForm.get('briefReason')?.hasError('containsEmoji')"> Emojis are not allowed.</div>
+    <div *ngIf="leaveForm.get('briefReason')?.hasError('numbersOnly')"> Cannot be only numbers.</div>
+    <div *ngIf="leaveForm.get('briefReason')?.hasError('invalidChars')"> Only letters, digits, '.', ',' and '-' allowed.</div>
+    <div *ngIf="leaveForm.get('briefReason')?.hasError('minLength')">Minimum 50 characters required.</div>
+    <div *ngIf="leaveForm.get('briefReason')?.hasError('maxLength')"> Maximum 100 characters allowed.</div>
+  </div>
+</div>
+
 
         <div class="mb-3  ">
           <label for="backupContact" class="form-label fw-bold"><span class="text-danger ">*</span>Backup Contact(s) <span
               class="small text-muted">(Acc Peer only. If none, add Supervisor)</span></label>
           <ng-select #backup [items]="listOfUsers" bindLabel="email" bindValue="id" [multiple]="true"
-            placeholder="Start typing the Email id..." formControlName="backupContact" [closeOnSelect]="false"
+            placeholder="Select Backup Contact(s)" formControlName="backupContact" [closeOnSelect]="false"
             [searchable]="true" [clearable]="true" (change)="onBackupChange()" [ngClass]="{
     'is-invalid': leaveForm.get('backupContact')?.invalid && leaveForm.get('backupContact')?.touched
   }">
@@ -99,7 +120,7 @@
             <span class="small text-muted">(Must add- Acc Supervisor)</span></label>
 
           <ng-select #notify [items]="listOfUsers" bindLabel="email" bindValue="id" [multiple]="true"
-            placeholder='Start typing the Email id...' formControlName="notifyTo" [closeOnSelect]="false"
+            placeholder='Select Recipient(s)' formControlName="notifyTo" [closeOnSelect]="false"
             [searchable]="true" [clearable]="true" (change)="onNotifyChange()" [ngClass]="{
       'is-invalid': leaveForm.get('notifyTo')?.invalid && leaveForm.get('notifyTo')?.touched
     }">
@@ -117,7 +138,7 @@
 
         <div class="mb-3 fw-bold">
           <label for="baseLocation" class="form-label"> <span class="text-danger">*</span>Base Location </label>
-          <ng-select [items]="locations" placeholder="Select..." formControlName="baseLocation"
+          <ng-select [items]="locations" placeholder="Select Base Location" formControlName="baseLocation"
             [class.is-invalid]="leaveForm.get('baseLocation')?.invalid && leaveForm.get('baseLocation')?.touched"
             [searchable]="true">
           </ng-select>
@@ -128,8 +149,8 @@
         </div>
 
         <div class="mb-3 fw-bold">
-          <label for="projectSow" class="form-label"><span class="text-danger">*</span>Project/SOW </label>
-          <ng-select [items]="projects" placeholder="Select..." formControlName="projectSow"
+          <label for="projectSow" class="form-label"><span class="text-danger">*</span>Project</label>
+          <ng-select [items]="projects" placeholder="Select Project" formControlName="projectSow"
             [class.is-invalid]="leaveForm.get('projectSow')?.invalid && leaveForm.get('projectSow')?.touched"
             [searchable]="true">
           </ng-select>
@@ -139,8 +160,8 @@
         </div>
 
         <div class="mb-3 fw-bold">
-          <label for="subLobTeam" class="form-label"><span class="text-danger">*</span>Sub-LOB/Team </label>
-          <ng-select [items]="subLobteams" placeholder="Select..." formControlName="subLobTeam"
+          <label for="subLobTeam" class="form-label"><span class="text-danger">*</span>Team </label>
+          <ng-select [items]="subLobteams" placeholder="Select Team" formControlName="subLobTeam"
             [class.is-invalid]="leaveForm.get('subLobTeam')?.invalid && leaveForm.get('subLobTeam')?.touched"
             [searchable]="true">
           </ng-select>
@@ -152,7 +173,7 @@
         <div class="mb-3 fw-bold">
           <label for="leaveStatus" class="form-label"> <span class="text-danger">*</span>Leave Status <span
               class="small text-muted">(Pick Planned if start date is in future)</span></label>
-          <ng-select [items]="leaveStatus" placeholder="Select..." formControlName="leaveStatus"
+          <ng-select [items]="leaveStatus" placeholder="Select Leave Status" formControlName="leaveStatus"
             [class.is-invalid]="leaveForm.get('leaveStatus')?.invalid && leaveForm.get('leaveStatus')?.touched"
             [searchable]="true">
           </ng-select>

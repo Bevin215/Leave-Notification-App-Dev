@@ -32,15 +32,56 @@ export class NotifyleaveComponent {
     comments: new FormControl()
 
   });
+  briefReasonLength: number = 0;
+  briefReasonValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    let value = control.value || '';
+
+    value = value.trim();
+
+    const emojiRegex = /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF])/g;
+    if (emojiRegex.test(value)) {
+      return { containsEmoji: true };
+    }
+
+    if (/^\d+$/.test(value)) {
+      return { numbersOnly: true };
+    }
+
+    if (!/^[a-zA-Z0-9.,\-\s]+$/.test(value)) {
+      return { invalidChars: true };
+    }
+
+    
+    const length = value.replace(/\s{2,}/g, ' ').length;
+    if (length < 50) {
+      return { minLength: true };
+    }
+    if (length > 100) {
+      return { maxLength: true };
+    }
+
+    return null;
+  };
+}
+onBriefReasonInput(): void {
+  const control = this.leaveForm.get('briefReason');
+  if (control) {
+    const value = (control.value || '').trim().replace(/\s{2,}/g, ' ');
+    this.briefReasonLength = value.length;
+  }
+}
+
+
 
  listOfUsers = [
-    { id: 1, name: "Polagani Vimala", email: "vimala.polagani@accenture.com" },
-    { id: 2, name: "Bevin John", email: "bevin.john@accenture.com" },
-    { id: 3, name: "Logesh", email: "logesh.r@accenture.com" },
-    { id: 4, name: "Mark Daniel", email: "mark.daniel@accenture.com" },
+    { id: 1, name: "Vimala, Polagani", email: "polagani.vimala@accenture.com" },
+    { id: 2, name: "Bevin, John", email: "bevin.john@accenture.com" },
+    { id: 3, name: "Logesh, Ravichandran", email: "logesh.r@accenture.com" },
+    { id: 4, name: "Mark, Daniel", email: "mark.daniel@accenture.com" },
   ];
   leaveOptions = ['Sick Off', 'Planned Vacation', 'Unplanned Leave', 'Floating', 'Compensatory Off', 'Bereavement'];
-  //leaveOptions = [{id:1,name:'Sick Off'},{id:1,name:'Planned Vacation'},{id:1,name:'Unplanned Leave'},{id:1,name:'Floating'},{id:1,name:'Compensatory Off'},{id:1,name:'Bereavement'}];
+
 
   locations = ['Bengaluru', 'Chennai', 'Hyderabad', 'Ahmedabad', 'Coimbatore', 'Gurugram', 'Kolkata', 'Mumbai', 'New Delhi', 'Noida', 'Pune', 'Indore', 'Jaipur', 'Other'];
   projects = ['1136', '1286', 'Yet to onboard', 'PMO', 'Leadership'];
@@ -78,7 +119,8 @@ export class NotifyleaveComponent {
       availedBy: [this.listOfUsers[1], Validators.required],
       startDate: [new Date().toISOString().split('T')[0], Validators.required],
       endDate: [new Date().toISOString().split('T')[0], Validators.required],
-      briefReason: "",
+      briefReason: ["", [this.briefReasonValidator()]],
+
       backupContact: [[], Validators.required],
       notifyTo: [[], Validators.required],
       baseLocation: [null, Validators.required],
