@@ -36,6 +36,9 @@ export class NotifyleaveComponent {
   briefReasonValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     let value = control.value || '';
+    if (value.trim() === '') {
+      return null;
+    }
 
     value = value.trim();
 
@@ -54,9 +57,6 @@ export class NotifyleaveComponent {
 
     
     const length = value.replace(/\s{2,}/g, ' ').length;
-    if (length < 50) {
-      return { minLength: true };
-    }
     if (length > 100) {
       return { maxLength: true };
     }
