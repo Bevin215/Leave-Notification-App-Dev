@@ -145,7 +145,7 @@ body {
 }
 
 .action-buttons button {
-  background-color: #4CAF50;
+  background-color: grey;
   color: white;
   border: none;
   border-radius: 5px;
@@ -154,5 +154,6 @@ body {
 }
 
 .action-buttons button:hover {
-  background-color: #45a049;
+  background-color: grey;
 }
+
