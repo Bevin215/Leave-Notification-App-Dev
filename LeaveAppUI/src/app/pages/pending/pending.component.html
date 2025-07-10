@@ -12,9 +12,9 @@
  
     <section class="content">
       <div class="leave-card" *ngFor="let leave of pendingLeaves" (click)="openDetails(leave)">
-            <h3 class="card-name">{{ leave.name }}</h3>
-            <p class="card-date">{{ leave.startDate }} <br> {{ leave.endDate }}</p>
-            <p class="card-type">{{ leave.type }}</p>
+            <h3 class="card-name">Name:{{ leave.name }}</h3>
+            <p class="card-date">Start Date:{{ leave.startDate }} <br> End Date:{{ leave.endDate }}</p>
+            <p class="card-type">Leave Type:{{ leave.type }}</p>
           <button class="arrow-btn">➔</button>
       </div>
     </section>
@@ -28,11 +28,11 @@
       <p class="detail-startdate"><strong>Start Date:</strong> {{ selectedLeave.startDate }}</p>
       <p class="detail-end date"><strong>End Date:</strong> {{ selectedLeave.endDate }}</p>
       <p class="detail-reason"><strong>Brief Reason:</strong> {{ selectedLeave.reason }}</p>
-      <p class="detail-contact"><strong>Backup Contact:</strong> {{ selectedLeave.backupContact }}</p>
-      <p class="detail-notify"><strong>Notify To Recipient:</strong> {{ selectedLeave.notifyTo }}</p>
+      <p class="detail-contact"><strong>Backup Contact(s):</strong> {{ selectedLeave.backupContact }}</p>
+      <p class="detail-notify"><strong>Notify To Recipient(s):</strong> {{ selectedLeave.notifyTo }}</p>
       <p class="detail-location"><strong>Base Location:</strong> {{ selectedLeave.location }}</p>
-      <p class="detail-project"><strong>Project/SOW:</strong> {{ selectedLeave.project }}</p>
-      <p class="detail-team"><strong>Sub-LOB/Team:</strong> {{ selectedLeave.team }}</p>
+      <p class="detail-project"><strong>Project:</strong> {{ selectedLeave.project }}</p>
+      <p class="detail-team"><strong>Team:</strong> {{ selectedLeave.team }}</p>
       <p class="detail-status"><strong>Leave Status:</strong> {{ selectedLeave.status }}</p>
       <p class="detail-comment"><strong>Comments:</strong> {{ selectedLeave.comments }}</p>
  
@@ -44,5 +44,3 @@
   </div>
 </div>
 
-
-<!-- (click)="openDetails(leave)" -->
