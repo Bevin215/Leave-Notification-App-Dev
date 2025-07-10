@@ -89,7 +89,7 @@
   leaveForm.get('briefReason')?.value &&
   leaveForm.get('briefReason')?.invalid
 " class="text-danger small">
-  <div *ngIf="leaveForm.get('briefReason')?.hasError('containsEmoji')"> Emojis are not allowed.</div>
+  <div *ngIf="leaveForm.get('briefReason')?.hasError('containsEmoji')"> Emoji's are not allowed.</div>
   <div *ngIf="leaveForm.get('briefReason')?.hasError('numbersOnly')"> Cannot be only numbers.</div>
   <div *ngIf="leaveForm.get('briefReason')?.hasError('invalidChars')"> Only letters, digits, '.', ',' and '-' allowed.</div>
   <div *ngIf="leaveForm.get('briefReason')?.hasError('minLength')">Minimum 50 characters required.</div>

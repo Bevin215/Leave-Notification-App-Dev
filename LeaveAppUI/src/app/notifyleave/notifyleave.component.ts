@@ -57,7 +57,7 @@ export class NotifyleaveComponent {
 
     
     const length = value.replace(/\s{2,}/g, ' ').length;
-    if (length > 100) {
+    if (length > 150) {
       return { maxLength: true };
     }
 
