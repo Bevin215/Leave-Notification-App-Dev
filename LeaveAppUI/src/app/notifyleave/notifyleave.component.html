@@ -70,7 +70,7 @@
         <div class="mb-3 fw-bold">
   <label for="briefReason" class="form-label">Brief Reason</label>
   <textarea
-    placeholder="Enter brief reason..."
+    placeholder="Optional – Describe your leave"
     class="form-control"
     id="briefReason"
     rows="3"
@@ -84,13 +84,19 @@
   </div>
 
 
-  <div *ngIf="leaveForm.get('briefReason')?.touched && leaveForm.get('briefReason')?.invalid" class="text-danger small">
-    <div *ngIf="leaveForm.get('briefReason')?.hasError('containsEmoji')"> Emojis are not allowed.</div>
-    <div *ngIf="leaveForm.get('briefReason')?.hasError('numbersOnly')"> Cannot be only numbers.</div>
-    <div *ngIf="leaveForm.get('briefReason')?.hasError('invalidChars')"> Only letters, digits, '.', ',' and '-' allowed.</div>
-    <div *ngIf="leaveForm.get('briefReason')?.hasError('minLength')">Minimum 50 characters required.</div>
-    <div *ngIf="leaveForm.get('briefReason')?.hasError('maxLength')"> Maximum 100 characters allowed.</div>
-  </div>
+  <div *ngIf="
+  leaveForm.get('briefReason')?.touched &&
+  leaveForm.get('briefReason')?.value &&
+  leaveForm.get('briefReason')?.invalid
+" class="text-danger small">
+  <div *ngIf="leaveForm.get('briefReason')?.hasError('containsEmoji')"> Emoji's are not allowed.</div>
+  <div *ngIf="leaveForm.get('briefReason')?.hasError('numbersOnly')"> Cannot be only numbers.</div>
+  <div *ngIf="leaveForm.get('briefReason')?.hasError('invalidChars')"> Only letters, digits, '.', ',' and '-' allowed.</div>
+  <div *ngIf="leaveForm.get('briefReason')?.hasError('minLength')">Minimum 50 characters required.</div>
+  <div *ngIf="leaveForm.get('briefReason')?.hasError('maxLength')"> Maximum 100 characters allowed.</div>
+</div>
+
+
 </div>
 
 
@@ -186,7 +192,7 @@
         <div class="mb-3 fw-bold">
           <div class="col-sm-8">
             <label for="comments" class="form-label">Comments</label>
-            <textarea placeholder="Enter your comments..." class="form-control" id="comments" rows="3"
+            <textarea placeholder= "Optional - Mention anything else you'd would like to add" class="form-control" id="comments" rows="3"
               formControlName="comments"></textarea>
           </div>
         </div>
