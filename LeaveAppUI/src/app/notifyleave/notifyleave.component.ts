@@ -57,7 +57,7 @@ export class NotifyleaveComponent {
 
     
     const length = value.replace(/\s{2,}/g, ' ').length;
-    if (length > 150) {
+    if (length > 100) {
       return { maxLength: true };
     }
 
@@ -71,6 +71,43 @@ onBriefReasonInput(): void {
     this.briefReasonLength = value.length;
   }
 }
+
+commentSecLength: number = 0;
+
+commentSecValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    let value = control.value || '';
+    if (value.trim() === '') {
+      return null;
+    }
+    value = value.trim();
+    const emojiRegex = /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF])/g;
+    if (emojiRegex.test(value)) {
+      return { containsEmoji: true };
+    }
+
+    if (/^\d+$/.test(value)) {
+      return { numbersOnly: true };
+    }
+    if (!/^[a-zA-Z0-9.,\-\s]+$/.test(value)) {
+      return { invalidChars: true };
+    }
+    const length = value.replace(/\s{2,}/g, ' ').length;
+    if (length > 100) {
+      return { maxLength: true };
+    }
+    return null;
+  };
+}
+
+onCommentSecInput(): void {
+  const control = this.leaveForm.get('comments');
+  if (control) {
+    const value = (control.value || '').trim().replace(/\s{2,}/g, ' ');
+    this.commentSecLength = value.length;
+  }
+}
+
 
 
 
@@ -120,14 +157,13 @@ onBriefReasonInput(): void {
       startDate: [new Date().toISOString().split('T')[0], Validators.required],
       endDate: [new Date().toISOString().split('T')[0], Validators.required],
       briefReason: ["", [this.briefReasonValidator()]],
-
       backupContact: [[], Validators.required],
       notifyTo: [[], Validators.required],
       baseLocation: [null, Validators.required],
       projectSow: [null, Validators.required],
       subLobTeam: [null, Validators.required],
       leaveStatus: ['Availed', Validators.required],
-      comments: "",
+      comments: ["", [this.commentSecValidator()]],
     },
   { validators: [this.dateRangeValidator, this.minStartDateValidator] });
   }
