@@ -12,27 +12,56 @@
  
     <section class="content">
       <div class="leave-card" *ngFor="let leave of pendingLeaves" (click)="openDetails(leave)">
-            <h3 class="card-name">Name:{{ leave.name }}</h3>
-            <p class="card-date">Start Date:{{ leave.startDate }} <br> End Date:{{ leave.endDate }}</p>
-            <p class="card-type">Leave Type:{{ leave.type }}</p>
+        <div class="card-first">
+          <p class="card-type"><strong>Leave Type:</strong>{{ leave.type }}</p>
+          <h5 class="card-name">Name:{{ leave.name }}</h5>
+        </div>
+        <div>
+          <p class="card-startdate"><strong>Start Date:</strong>{{ leave.startDate }}</p>
+          <p class="card-enddate"> <strong>End Date:</strong>{{ leave.endDate }}</p>
+        </div>
+        <div class="card-branch">
+          <p class="card-project"><strong>Project:</strong> {{ leave.project }}</p>
+          <p class="card-team"><strong>Team:</strong> {{ leave.team }}</p>
+        </div>
           <button class="arrow-btn">➔</button>
       </div>
     </section>
   </div>
  
   <div class="details-modal" *ngIf="selectedLeave">
+  
+<div class="reject-modal" *ngIf="showRejectPopup">
+  <div class="reject-content">
+    <h3>Reject Leave Request</h3>
+    <textarea [(ngModel)]="rejectionComment" placeholder="Enter reason for rejection..." rows="4">
+    </textarea>
+    <div class="reject-actions">
+      <button class="btn btn-danger" [disabled]="!rejectionComment.trim()" (click)="confirmReject()">Reject</button>
+      <button class="btn btn-secondary" (click)="cancelReject()">Cancel</button>
+    </div>
+  </div>
+</div>
+
     <div class="details-content" >
       <h2>Leave Details</h2>
-      <p class="detail-type"><strong>Leave Type:</strong> {{ selectedLeave.type }}</p>
       <p class="detail-name"><strong>Availed By:</strong> {{ selectedLeave.name }}</p>
-      <p class="detail-startdate"><strong>Start Date:</strong> {{ selectedLeave.startDate }}</p>
-      <p class="detail-end date"><strong>End Date:</strong> {{ selectedLeave.endDate }}</p>
+      <p class="detail-type"><strong>Leave Type:</strong> {{ selectedLeave.type }}</p>
+     
+      <div class="detail-date">
+        <p class="detail-startdate"><strong>Start Date:</strong> {{ selectedLeave.startDate }}</p>
+        <p class="detail-end date"><strong>End Date:</strong> {{ selectedLeave.endDate }}</p>
+      </div>
+     
       <p class="detail-reason"><strong>Brief Reason:</strong> {{ selectedLeave.reason }}</p>
       <p class="detail-contact"><strong>Backup Contact(s):</strong> {{ selectedLeave.backupContact }}</p>
       <p class="detail-notify"><strong>Notify To Recipient(s):</strong> {{ selectedLeave.notifyTo }}</p>
       <p class="detail-location"><strong>Base Location:</strong> {{ selectedLeave.location }}</p>
-      <p class="detail-project"><strong>Project:</strong> {{ selectedLeave.project }}</p>
-      <p class="detail-team"><strong>Team:</strong> {{ selectedLeave.team }}</p>
+      <div class="detail-branch">
+        <p class="detail-project"><strong>Project:</strong> {{ selectedLeave.project }}</p>
+        <p class="detail-team"><strong>Team:</strong> {{ selectedLeave.team }}</p>
+      </div>
+     
       <p class="detail-status"><strong>Leave Status:</strong> {{ selectedLeave.status }}</p>
       <p class="detail-comment"><strong>Comments:</strong> {{ selectedLeave.comments }}</p>
  

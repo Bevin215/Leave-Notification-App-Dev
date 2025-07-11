@@ -3,48 +3,48 @@ html, body {
   padding: 0;
   height: 100%;
 }
-
+ 
 .container {
   margin: 0;
   padding: 0;
-  height: 100vh; 
+  height: 100vh;
 }
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {
         max-width: 1400px;
     }
 }
-
+ 
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
 }
-
+ 
 .container {
   margin: 0;
   padding: 0;
-  height: 100vh; 
+  height: 100vh;
 }
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {
         max-width: 1400px;
     }
 }
-
+ 
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f4f4f4;
 }
-
+ 
 .container {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
-
+ 
 .header {
   background-color:black;
   color: white;
@@ -52,46 +52,46 @@ body {
   text-align: center;
   font-size: 24px;
 }
-
+ 
 .main-layout {
   display: flex;
   flex: 1;
 }
-
+ 
 .sidebar {
-
+ 
   width: 230px;
   background-color: #333;
   color: white;
   padding: 5px;
 }
-
+ 
 .sidebar ul {
   list-style-type: none;
   padding: 0;
 }
-
+ 
 .sidebar li {
   padding: 10px;
   cursor: pointer;
 }
-
+ 
 .sidebar li.active {
   background-color:black;
   color:white;
   border-radius: 5px;
 }
-
+ 
 .sidebar li:hover {
   background-color: #575757;
 }
-
+ 
 .content {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
 }
-
+ 
 .leave-card {
   background-color: white;
   border: 1px solid #ddd;
@@ -103,12 +103,12 @@ body {
   align-items: center;
   transition: box-shadow 0.3s;
 }
-
+ 
 .leave-card:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
-
+ 
+ 
 .arrow-btn {
   background-color: grey;
   color: white;
@@ -117,7 +117,7 @@ body {
   padding: 4px;
   cursor: pointer;
 }
-
+ 
 .details-modal {
   position: fixed;
   top: 0;
@@ -129,7 +129,7 @@ body {
   justify-content: center;
   align-items: center;
 }
-
+ 
 .details-content {
   background-color: white;
   padding: 50px;
@@ -137,13 +137,13 @@ body {
   width: 600px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
+ 
 .action-buttons {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 }
-
+ 
 .action-buttons button {
   background-color: grey;
   color: white;
@@ -152,8 +152,88 @@ body {
   padding: 10px 15px;
   cursor: pointer;
 }
-
+ 
 .action-buttons button:hover {
   background-color: grey;
 }
+.detail-date{
+  display:flex;
+  flex-direction:row;
+  gap:60px;
+}
+ 
+.detail-branch{
+  display:flex;
+  flex-direction:row;
+  gap:125px;
+}
+.detail-name{
+  display:flex;
+  justify-content:center;
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+.reject-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(6px); 
+  background-color: rgba(0, 0, 0, 0.4); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
 
+.reject-content {
+  background-color: #fff;
+  padding: 24px 28px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+}
+
+.reject-content textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+  margin-top: 12px;
+  box-sizing: border-box;
+}
+
+.reject-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.reject-actions .btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reject-actions .btn-danger:disabled {
+  background-color: #f5a5a5;
+  cursor: not-allowed;
+}
+
+.reject-actions .btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
