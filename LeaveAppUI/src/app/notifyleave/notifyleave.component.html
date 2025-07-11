@@ -3,7 +3,7 @@
   <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
 </div>
 <div class="page-wrapper my-5">
-  <button type="button" class="btn btn-secondary">Leave Requests</button>
+  <button type="button" class="btn btn-secondary" [routerLink]="['/pending']">Leave Requests</button>
   <div class="card shadow-lg p-4">
     <div class="card-header text-center">
       <h5 style="background-color:black; color: white;">Notify Leave</h5>
@@ -68,36 +68,33 @@
         </div>
 
         <div class="mb-3 fw-bold">
-  <label for="briefReason" class="form-label">Brief Reason</label>
-  <textarea
-    placeholder="Optional – Describe your leave"
-    class="form-control"
-    id="briefReason"
-    rows="3"
-    formControlName="briefReason"
-    (input)="onBriefReasonInput()"
-    maxlength="100">
-  </textarea>
+          <label for="briefReason" class="form-label">Brief Reason</label>
+          <textarea
+            placeholder="Optional - Describe your leave"
+            class="form-control"
+            id="briefReason"
+            rows="3"
+            formControlName="briefReason"
+            (input)="onBriefReasonInput()"
+            maxlength="100">
+          </textarea>
 
-  <div class="text-end small text-muted mt-1">
-    {{ briefReasonLength }}/100characters
-  </div>
-
-
-  <div *ngIf="
-  leaveForm.get('briefReason')?.touched &&
-  leaveForm.get('briefReason')?.value &&
-  leaveForm.get('briefReason')?.invalid
-" class="text-danger small">
-  <div *ngIf="leaveForm.get('briefReason')?.hasError('containsEmoji')"> Emoji's are not allowed.</div>
-  <div *ngIf="leaveForm.get('briefReason')?.hasError('numbersOnly')"> Cannot be only numbers.</div>
-  <div *ngIf="leaveForm.get('briefReason')?.hasError('invalidChars')"> Only letters, digits, '.', ',' and '-' allowed.</div>
-  <div *ngIf="leaveForm.get('briefReason')?.hasError('minLength')">Minimum 50 characters required.</div>
-  <div *ngIf="leaveForm.get('briefReason')?.hasError('maxLength')"> Maximum 100 characters allowed.</div>
-</div>
+          <div class="text-end small text-muted mt-1">
+            {{ briefReasonLength }}/100characters
+          </div>
 
 
-</div>
+          <div *ngIf="
+          leaveForm.get('briefReason')?.touched &&
+          leaveForm.get('briefReason')?.value &&
+          leaveForm.get('briefReason')?.invalid
+        " class="text-danger small">
+          <div *ngIf="leaveForm.get('briefReason')?.hasError('containsEmoji')"> Emoji's are not allowed.</div>
+          <div *ngIf="leaveForm.get('briefReason')?.hasError('numbersOnly')"> Cannot be only numbers.</div>
+          <div *ngIf="leaveForm.get('briefReason')?.hasError('invalidChars')"> Only letters, digits, '.', ',' and '-' allowed.</div>
+          <div *ngIf="leaveForm.get('briefReason')?.hasError('maxLength')"> Maximum 100 characters allowed.</div>
+          </div>
+        </div>
 
 
         <div class="mb-3  ">
@@ -190,12 +187,33 @@
         </div>
 
         <div class="mb-3 fw-bold">
-          <div class="col-sm-8">
             <label for="comments" class="form-label">Comments</label>
-            <textarea placeholder= "Optional - Mention anything else you'd would like to add" class="form-control" id="comments" rows="3"
-              formControlName="comments"></textarea>
+            <textarea
+              placeholder="Optional - Mention Anything else that you'd like to add"
+              class="form-control"
+              id="comments"
+              rows="3"
+              formControlName="comments"
+              (input)="onCommentSecInput()"
+              maxlength="100"></textarea>
+
+            <div class="text-end small text-muted mt-1">
+              {{ commentSecLength }}/100characters
+            </div>
+
+
+            <div *ngIf="
+            leaveForm.get('comments')?.touched &&
+            leaveForm.get('comments')?.value &&
+            leaveForm.get('comments')?.invalid
+          " class="text-danger small">
+            <div *ngIf="leaveForm.get('comments')?.hasError('containsEmoji')"> Emoji's are not allowed.</div>
+            <div *ngIf="leaveForm.get('comments')?.hasError('numbersOnly')"> Cannot be only numbers.</div>
+            <div *ngIf="leaveForm.get('comments')?.hasError('invalidChars')"> Only letters, digits, '.', ',' and '-' allowed.</div>
+            <div *ngIf="leaveForm.get('comments')?.hasError('maxLength')"> Maximum 100 characters allowed.</div>
           </div>
         </div>
+
 
         <button class="btn btn-dark" type="submit">Submit</button>
       </form>
