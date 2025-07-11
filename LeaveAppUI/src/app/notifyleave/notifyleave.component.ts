@@ -205,4 +205,9 @@ onBackupChange() {
   this.backupSelect.searchTerm = '';
  }
  
+goToPending() {
+    this.router.navigate(['/pending']);
+  }
+
+ 
 }
