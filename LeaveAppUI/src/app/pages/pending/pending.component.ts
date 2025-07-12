@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './pending.component.html',
   styleUrls: ['./pending.component.css']
 })
+
 export class PendingComponent {
   pendingLeaves = [
     {
@@ -147,5 +148,10 @@ confirmReject() {
     this.rejectionComment = '';
   }
 }
+ closeDetails() {
+    this.selectedLeave = null;
+    this.showRejectPopup = false;
+    this.rejectionComment = '';
+  }
 
 }
