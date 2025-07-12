@@ -4,25 +4,25 @@
   <div class="main-layout">
     <nav class="sidebar">
       <ul>
-        <li class="active">Pending</li>
-        <li>Approved</li>
-        <li>Rejected</li>
+        <li class="active mb-3">Pending</li>
+        <li class="active mb-3">Approved</li>
+        <li class="active mb-3">Rejected</li>
       </ul>
     </nav>
  
     <section class="content">
       <div class="leave-card" *ngFor="let leave of pendingLeaves" (click)="openDetails(leave)">
         <div class="card-first">
-          <p class="card-type"><strong>Leave Type:</strong>{{ leave.type }}</p>
-          <h5 class="card-name">Name:{{ leave.name }}</h5>
+          <p class="card-type"><strong>Leave Type: </strong>{{ leave.type }}</p>
+          <h5 class="card-name">Name: {{ leave.name }}</h5>
         </div>
-        <div>
-          <p class="card-startdate"><strong>Start Date:</strong>{{ leave.startDate }}</p>
-          <p class="card-enddate"> <strong>End Date:</strong>{{ leave.endDate }}</p>
+        <div class="card-date">
+          <p class="card-startdate"><strong>Start Date: </strong>{{ leave.startDate }}</p>
+          <p class="card-enddate"> <strong>End Date: </strong>{{ leave.endDate }}</p>
         </div>
         <div class="card-branch">
-          <p class="card-project"><strong>Project:</strong> {{ leave.project }}</p>
-          <p class="card-team"><strong>Team:</strong> {{ leave.team }}</p>
+          <p class="card-project"><strong>Project: </strong> {{ leave.project }}</p>
+          <p class="card-team"><strong>Team: </strong> {{ leave.team }}</p>
         </div>
           <button class="arrow-btn">➔</button>
       </div>
@@ -30,7 +30,7 @@
   </div>
  
   <div class="details-modal" *ngIf="selectedLeave">
-  
+ 
 <div class="reject-modal" *ngIf="showRejectPopup">
   <div class="reject-content">
     <h3>Reject Leave Request</h3>
@@ -42,28 +42,24 @@
     </div>
   </div>
 </div>
-
+ 
     <div class="details-content" >
+      <button class="close-btn" (click)="closeDetails()">×</button>
       <h2>Leave Details</h2>
-      <p class="detail-name"><strong>Availed By:</strong> {{ selectedLeave.name }}</p>
-      <p class="detail-type"><strong>Leave Type:</strong> {{ selectedLeave.type }}</p>
-     
-      <div class="detail-date">
+      <p class="detail-name"><strong>Availed By: </strong> {{ selectedLeave.name }}</p>
+      <p class="detail-type"><strong>Leave Type: </strong> {{ selectedLeave.type }}</p>
         <p class="detail-startdate"><strong>Start Date:</strong> {{ selectedLeave.startDate }}</p>
-        <p class="detail-end date"><strong>End Date:</strong> {{ selectedLeave.endDate }}</p>
-      </div>
+        <p class="detail-enddate"><strong>End Date:</strong> {{ selectedLeave.endDate }}</p>
      
-      <p class="detail-reason"><strong>Brief Reason:</strong> {{ selectedLeave.reason }}</p>
-      <p class="detail-contact"><strong>Backup Contact(s):</strong> {{ selectedLeave.backupContact }}</p>
-      <p class="detail-notify"><strong>Notify To Recipient(s):</strong> {{ selectedLeave.notifyTo }}</p>
-      <p class="detail-location"><strong>Base Location:</strong> {{ selectedLeave.location }}</p>
-      <div class="detail-branch">
-        <p class="detail-project"><strong>Project:</strong> {{ selectedLeave.project }}</p>
-        <p class="detail-team"><strong>Team:</strong> {{ selectedLeave.team }}</p>
-      </div>
+      <p class="detail-reason"><strong>Brief Reason: </strong> {{ selectedLeave.reason }}</p>
+      <p class="detail-contact"><strong>Backup Contact(s): </strong> {{ selectedLeave.backupContact }}</p>
+      <p class="detail-notify"><strong>Notify To Recipient(s): </strong> {{ selectedLeave.notifyTo }}</p>
+      <p class="detail-location"><strong>Base Location: </strong> {{ selectedLeave.location }}</p>
+        <p class="detail-project"><strong>Project: </strong> {{ selectedLeave.project }}</p>
+        <p class="detail-team"><strong>Team: </strong> {{ selectedLeave.team }}</p>
      
-      <p class="detail-status"><strong>Leave Status:</strong> {{ selectedLeave.status }}</p>
-      <p class="detail-comment"><strong>Comments:</strong> {{ selectedLeave.comments }}</p>
+      <p class="detail-status"><strong>Leave Status: </strong> {{ selectedLeave.status }}</p>
+      <p class="detail-comment"><strong>Comments: </strong> {{ selectedLeave.comments }}</p>
  
       <div class="action-buttons">
         <button (click)="approveLeave()">Approve</button>
@@ -72,3 +68,4 @@
     </div>
   </div>
 </div>
+ 
