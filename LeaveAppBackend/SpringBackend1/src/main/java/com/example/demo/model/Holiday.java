@@ -10,7 +10,7 @@ public class Holiday {
     @Id
     private String id;
     private LocalDate date;   // holiday date
-    private String name;      // optional holiday name
+    private String name;   
 
     public String getId() {
         return id;

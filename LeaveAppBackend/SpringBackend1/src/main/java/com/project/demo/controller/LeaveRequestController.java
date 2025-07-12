@@ -22,11 +22,15 @@ public class LeaveRequestController {
     public LeaveRequest applyLeave(@RequestBody LeaveRequest leaveRequest) {
         return leaveRequestService.submitLeave(leaveRequest);
     }
- 
     
     @GetMapping("/all")
     public List<LeaveRequest> getAllLeaves() {
         return leaveRequestService.getAllLeaves();
+    }
+    
+    @PostMapping("/calculateLeaveDays")
+    public int calculateLeaveDays(@RequestBody LeaveRequest request) {
+        return leaveRequestService.calculateLeaveDays(request.getStartDate(), request.getEndDate());
     }
     
     @GetMapping("/insertSample")
