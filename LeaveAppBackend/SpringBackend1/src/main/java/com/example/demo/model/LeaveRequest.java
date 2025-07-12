@@ -23,6 +23,7 @@ import java.util.List;
 	    private String projectSow;
 	    private String subTeam;
 	    private String leaveStatus; 
+	    private long leaveDays;
 	 
 	    private String comments; 
 	 
@@ -117,6 +118,13 @@ import java.util.List;
 	    }
 	    public void setComments(String comments) {
 	        this.comments = comments;
+	    }
+	    public long getLeaveDays() {
+	        return leaveDays;
+	    }
+
+	    public void setLeaveDays(long leaveDays) {
+	        this.leaveDays = leaveDays;
 	    }
 	}
 

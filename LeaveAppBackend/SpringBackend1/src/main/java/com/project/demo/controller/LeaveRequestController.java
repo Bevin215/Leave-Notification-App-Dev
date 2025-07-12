@@ -3,7 +3,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.LeaveRequest;
-import com.example.demo.repository.LeaveRequestRepository;
+import com.example.demo.service.LeaveRequestService;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,19 +15,18 @@ import java.util.List;
 @CrossOrigin(origins = "*")  
 public class LeaveRequestController {
  
-    @Autowired
-    private LeaveRequestRepository leaveRequestRepository;
- 
-    
+	@Autowired
+    private LeaveRequestService leaveRequestService;
+
     @PostMapping("/apply")
     public LeaveRequest applyLeave(@RequestBody LeaveRequest leaveRequest) {
-        return leaveRequestRepository.save(leaveRequest);
+        return leaveRequestService.submitLeave(leaveRequest);
     }
  
     
     @GetMapping("/all")
     public List<LeaveRequest> getAllLeaves() {
-    	   return leaveRequestRepository.findAll();
+        return leaveRequestService.getAllLeaves();
     }
     
     @GetMapping("/insertSample")
@@ -51,14 +51,15 @@ public class LeaveRequestController {
 
         list.add(leave1);
         
-
-        leaveRequestRepository.saveAll(list);
+        for (LeaveRequest leave : list) {
+            leaveRequestService.submitLeave(leave);
+        }
 
         return "Sample leave requests inserted!";
     }
     
     @PostMapping("/insertLeaveRequest")
     public LeaveRequest insertUserLeave(@RequestBody LeaveRequest leaveRequest) {
-        return leaveRequestRepository.save(leaveRequest);
+        return leaveRequestService.submitLeave(leaveRequest);
     }
 }
