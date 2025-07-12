@@ -5,8 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: './pending.component.html',
   styleUrls: ['./pending.component.css']
 })
-
 export class PendingComponent {
+  currentTab: 'Pending' | 'Approved' | 'Rejected' = 'Pending';
+
   pendingLeaves = [
     {
       name: 'Mark Daniel A',
@@ -110,9 +111,25 @@ export class PendingComponent {
     status: 'Pending',
     comments: ''
   }
-];
+
+  ];
+  approvedLeaves: any[] = [];
+  rejectedLeaves: any[] = [];
 
   selectedLeave: any = null;
+  showRejectPopup = false;
+  rejectionComment = '';
+
+  get visibleLeaves() {
+    if (this.currentTab === 'Approved') return this.approvedLeaves;
+    if (this.currentTab === 'Rejected') return this.rejectedLeaves;
+    return this.pendingLeaves;
+  }
+
+  setTab(tab: 'Pending' | 'Approved' | 'Rejected') {
+    this.currentTab = tab;
+    this.closeDetails();
+  }
 
   openDetails(leave: any) {
     this.selectedLeave = leave;
@@ -120,38 +137,34 @@ export class PendingComponent {
 
   approveLeave() {
     this.selectedLeave.status = 'Approved';
-    this.selectedLeave = null;
+    this.approvedLeaves.push(this.selectedLeave);
+    this.pendingLeaves = this.pendingLeaves.filter(l => l !== this.selectedLeave);
+    this.closeDetails();
   }
 
- 
-  showRejectPopup = false;
-rejectionComment = '';
-
-rejectLeave() {
-  this.showRejectPopup = true;
-}
-
-cancelReject() {
-  this.showRejectPopup = false;
-  this.rejectionComment = '';
-}
-
-confirmReject() {
-  if (this.rejectionComment.trim()) {
-    this.selectedLeave.status = 'Rejected';
-    this.selectedLeave.comments = this.rejectionComment;
-
-    // Optionally close the details modal too
-    this.selectedLeave = null;
-
-    this.showRejectPopup = false;
-    this.rejectionComment = '';
+  rejectLeave() {
+    this.showRejectPopup = true;
   }
-}
- closeDetails() {
-    this.selectedLeave = null;
+
+  cancelReject() {
     this.showRejectPopup = false;
     this.rejectionComment = '';
   }
 
+  confirmReject() {
+    if (this.rejectionComment.trim()) {
+      this.selectedLeave.status = 'Rejected';
+      this.selectedLeave.comments = this.rejectionComment;
+      this.rejectedLeaves.push(this.selectedLeave);
+      this.pendingLeaves = this.pendingLeaves.filter(l => l !== this.selectedLeave);
+      this.closeDetails();
+    }
+  }
+
+  closeDetails() {
+    this.selectedLeave = null;
+    this.showRejectPopup = false;
+    this.rejectionComment = '';
+  }
 }
+
