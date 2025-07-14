@@ -76,7 +76,7 @@
         <div class="mb-3 fw-bold">
           <label for="briefReason" class="form-label">Brief Reason</label>
           <textarea
-            placeholder="Optional - Describe your leave"
+            placeholder="Optional - Describe your leave in less than (or) equal to 100 characters"
             class="form-control"
             id="briefReason"
             rows="3"
@@ -87,6 +87,9 @@
 
           <div class="text-end small text-muted mt-1">
             {{ briefReasonLength }}/100characters
+          </div>
+          <div *ngIf="briefReasonLength === 100" class="text-warning small">
+              Sorry, you could not exceed the character limit ( > 100 characters).
           </div>
 
 
@@ -195,7 +198,7 @@
         <div class="mb-3 fw-bold">
             <label for="comments" class="form-label">Comments</label>
             <textarea
-              placeholder="Optional - Mention Anything else that you'd like to add"
+              placeholder="Optional - Mention anything else that you'd like to add in less than (or) equal to 100 characters"
               class="form-control"
               id="comments"
               rows="3"
@@ -205,6 +208,9 @@
 
             <div class="text-end small text-muted mt-1">
               {{ commentSecLength }}/100characters
+            </div>
+            <div *ngIf="commentSecLength === 100" class="text-warning small">
+              Sorry, you could not exceed the character limit ( > 100 characters).
             </div>
 
 
