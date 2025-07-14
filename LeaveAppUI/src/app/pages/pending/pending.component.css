@@ -1,0 +1,248 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f6ff;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  background-color: #A100FF;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.main-layout {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  width: 220px;
+  
+  padding: 20px 0;
+  
+}
+
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 14px 24px;
+  margin: 10px 12px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 8px;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.sidebar li:hover {
+  background-color: #d4b6ff;
+}
+
+.sidebar li.active {
+  background-color: #A100FF;
+  color: white;
+  font-weight: bold;
+}
+
+.content {
+  flex: 1;
+  padding: 25px;
+  overflow-y: auto;
+}
+
+.leave-card {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.leave-card:hover {
+  transform: translateY(-3px);
+}
+
+.card-first, .card-date, .card-branch {
+  flex: 1;
+  margin-bottom: 10px;
+  min-width: 200px;
+}
+
+.card-type,
+.card-name,
+.card-startdate,
+.card-enddate,
+.card-project,
+.card-team {
+  font-size: 16px;
+  margin: 4px 0;
+}
+
+.arrow-btn {
+  background-color: #A100FF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 18px;
+  cursor: pointer;
+  height: 40px;
+  align-self: center;
+}
+
+.details-modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.details-content {
+  background-color: white;
+  padding: 40px;
+  border-radius: 15px;
+  width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.details-content h2 {
+  color: #A100FF;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.details-content p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.action-buttons button {
+  background-color: #A100FF;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-weight: 500;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.action-buttons button:hover {
+  background-color: #8a00e6;
+}
+
+.reject-modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.reject-content {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.reject-content h3 {
+  margin-top: 0;
+  color: #A100FF;
+}
+
+.reject-content textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+  margin-top: 12px;
+  box-sizing: border-box;
+}
+
+.reject-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.reject-actions .btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.reject-actions .btn-danger:disabled {
+  background-color: #f5a5a5;
+  cursor: not-allowed;
+}
+
+.reject-actions .btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #444;
+  background: transparent;
+  border: none;
+}
+
+.close-btn:hover {
+  color: #A100FF;
+}
+
+
