@@ -8,7 +8,5 @@ export class MyServiceService {
 
   constructor(private hc:HttpClient) { }
 
-  getEmp(){
-    
-  }
+
 }
