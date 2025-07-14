@@ -1,6 +1,6 @@
 <div class="container">
   <header class="header">Leave Requests</header>
-
+ 
   <div class="main-layout">
     <nav class="sidebar">
       <ul>
@@ -9,26 +9,26 @@
         <li [class.active]="currentTab === 'Rejected'" (click)="setTab('Rejected')">Rejected</li>
       </ul>
     </nav>
-
+ 
     <section class="content">
       <div class="leave-card" *ngFor="let leave of visibleLeaves" (click)="openDetails(leave)">
         <div class="card-first">
-          <p><strong>Leave Type:</strong> {{ leave.type }}</p>
-          <h5>Name: {{ leave.name }}</h5>
+          <p><strong>Leave Type:</strong> {{ leave.leaveType }}</p>
+          <h5>Name: {{ leave.availedBy }}</h5>
         </div>
         <div class="card-date">
           <p><strong>From:</strong> {{ leave.startDate }}</p>
           <p><strong>To:</strong> {{ leave.endDate }}</p>
         </div>
         <div class="card-branch">
-          <p><strong>Proj:</strong> {{ leave.project }}</p>
-          <p><strong>Team:</strong> {{ leave.team }}</p>
+          <p><strong>Proj:</strong> {{ leave.projectSow }}</p>
+          <p><strong>Team:</strong> {{ leave.subLobTeam }}</p>
         </div>
         <button class="arrow-btn">➔</button>
       </div>
     </section>
   </div>
-
+ 
   <div class="details-modal" *ngIf="selectedLeave">
     <div class="reject-modal" *ngIf="showRejectPopup">
       <div class="reject-content">
@@ -40,23 +40,23 @@
         </div>
       </div>
     </div>
-
+ 
     <div class="details-content">
       <button class="close-btn" (click)="closeDetails()">×</button>
       <h2>Leave Details</h2>
-      <p><strong>Availed By:</strong> {{ selectedLeave.name }}</p>
-      <p><strong>Type:</strong> {{ selectedLeave.type }}</p>
+      <p><strong>Availed By:</strong> {{ selectedLeave.availedBy }}</p>
+      <p><strong>Type:</strong> {{ selectedLeave.leaveType }}</p>
       <p><strong>Start:</strong> {{ selectedLeave.startDate }}</p>
       <p><strong>End:</strong> {{ selectedLeave.endDate }}</p>
       <p><strong>Reason:</strong> {{ selectedLeave.reason }}</p>
       <p><strong>Backup Contact(s):</strong> {{ selectedLeave.backupContact }}</p>
       <p><strong>Notify To:</strong> {{ selectedLeave.notifyTo }}</p>
-      <p><strong>Location:</strong> {{ selectedLeave.location }}</p>
-      <p><strong>Project:</strong> {{ selectedLeave.project }}</p>
-      <p><strong>Team:</strong> {{ selectedLeave.team }}</p>
-      <p><strong>Status:</strong> {{ selectedLeave.status }}</p>
+      <p><strong>Location:</strong> {{ selectedLeave.baseLocation }}</p>
+      <p><strong>Project:</strong> {{ selectedLeave.projectSow }}</p>
+      <p><strong>Team:</strong> {{ selectedLeave.subLobTeam }}</p>
+      <p><strong>Status:</strong> {{ selectedLeave.leaveStatus }}</p>
       <p><strong>Comments:</strong> {{ selectedLeave.comments }}</p>
-
+ 
       <div class="action-buttons" *ngIf="currentTab === 'Pending'">
         <button (click)="approveLeave()">Approve</button>
         <button (click)="rejectLeave()">Reject</button>
@@ -64,5 +64,3 @@
     </div>
   </div>
 </div>
-
- 

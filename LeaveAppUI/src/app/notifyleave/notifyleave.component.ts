@@ -121,6 +121,7 @@ onCommentSecInput(): void {
 
 
 
+
 //  listOfUsers = [
 //     { id: 1, name: "Vimala, Polagani", email: "polagani.vimala@accenture.com" },
 //     { id: 2, name: "Bevin, John", email: "bevin.john@accenture.com" },
@@ -252,9 +253,11 @@ onBackupChange() {
   this.backupSelect.searchTerm = '';
  }
  
-goToPending() {
-    this.router.navigate(['/pending']);
-  }
+goToPending(): void {
+  const url = `${window.location.origin}/pending`;
+  window.open(url, '_blank');
+}
+
 
  
 }
