@@ -32,12 +32,12 @@
 
         <div class="mb-3 fw-bold">
           <label for="availedBy" class="form-label"><span class="text-danger">*</span>Availed By </label>
-          <ng-select [items]="listOfUsers" bindLabel="name" placeholder="Enter Username"
+          <ng-select [items]="listOfUsers" bindLabel="name"   bindValue="name" placeholder="Enter Username"
             formControlName="availedBy" [searchable]="true" [clearable]="true" [ngClass]="{
     'is-invalid': leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched
   }">
             <ng-template ng-option-tmp let-item="item">
-              {{ item.name }} — {{ item.email }}
+              {{ item.name }} — {{ item.userEmail }}
             </ng-template>
           </ng-select>
           <div *ngIf="leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched" class="text-danger">
@@ -80,7 +80,7 @@
             class="form-control"
             id="briefReason"
             rows="3"
-            formControlName="briefReason"
+            formControlName="reason"
             (input)="onBriefReasonInput()"
             maxlength="100">
           </textarea>
@@ -94,14 +94,14 @@
 
 
           <div *ngIf="
-          leaveForm.get('briefReason')?.touched &&
-          leaveForm.get('briefReason')?.value &&
-          leaveForm.get('briefReason')?.invalid
+          leaveForm.get('reason')?.touched &&
+          leaveForm.get('reason')?.value &&
+          leaveForm.get('reason')?.invalid
         " class="text-danger small">
-          <div *ngIf="leaveForm.get('briefReason')?.hasError('containsEmoji')"> Emoji's are not allowed.</div>
-          <div *ngIf="leaveForm.get('briefReason')?.hasError('numbersOnly')"> Cannot be only numbers.</div>
-          <div *ngIf="leaveForm.get('briefReason')?.hasError('invalidChars')"> Only letters, digits, '.', ',' and '-' allowed.</div>
-          <div *ngIf="leaveForm.get('briefReason')?.hasError('maxLength')"> Maximum 100 characters allowed.</div>
+          <div *ngIf="leaveForm.get('reason')?.hasError('containsEmoji')"> Emoji's are not allowed.</div>
+          <div *ngIf="leaveForm.get('reason')?.hasError('numbersOnly')"> Cannot be only numbers.</div>
+          <div *ngIf="leaveForm.get('reason')?.hasError('invalidChars')"> Only letters, digits, '.', ',' and '-' allowed.</div>
+          <div *ngIf="leaveForm.get('reason')?.hasError('maxLength')"> Maximum 100 characters allowed.</div>
           </div>
         </div>
 
@@ -109,7 +109,7 @@
         <div class="mb-3  ">
           <label for="backupContact" class="form-label fw-bold"><span class="text-danger ">*</span>Backup Contact(s) <span
               class="small text-muted">(Acc Peer only. If none, add Supervisor)</span></label>
-          <ng-select #backup [items]="listOfUsers" bindLabel="email" bindValue="id" [multiple]="true"
+          <ng-select #backup [items]="listOfUsers" bindLabel="userEmail" bindValue="userEmail" [multiple]="true"
             placeholder="Select Backup Contact(s)" formControlName="backupContact" [closeOnSelect]="false"
             [searchable]="true" [clearable]="true" (change)="onBackupChange()" [ngClass]="{
     'is-invalid': leaveForm.get('backupContact')?.invalid && leaveForm.get('backupContact')?.touched
@@ -131,7 +131,7 @@
           <label for="notifyTo" class="form-label fw-bold"><span class="text-danger">*</span>Notify To Recipient(s)
             <span class="small text-muted">(Must add- Acc Supervisor)</span></label>
 
-          <ng-select #notify [items]="listOfUsers" bindLabel="email" bindValue="id" [multiple]="true"
+          <ng-select #notify [items]="listOfUsers" bindLabel="userEmail" bindValue="userEmail" [multiple]="true"
             placeholder='Select Recipient(s)' formControlName="notifyTo" [closeOnSelect]="false"
             [searchable]="true" [clearable]="true" (change)="onNotifyChange()" [ngClass]="{
       'is-invalid': leaveForm.get('notifyTo')?.invalid && leaveForm.get('notifyTo')?.touched
