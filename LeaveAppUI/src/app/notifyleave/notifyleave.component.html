@@ -79,6 +79,14 @@
           <div *ngIf="leaveForm.hasError('invalidDateRange') && leaveForm.touched" class="text-danger">
             <small>End date cannot be earlier than start date.</small>
           </div>
+          <div *ngIf="leaveDays!==null && leaveDays!==undefined &&leaveDays!==0" class="text-end text-mute small">
+            <small>Total number of Leave days {{leaveDays}}</small>
+          </div>
+          <div *ngIf="leaveDays===0 && !(leaveForm.hasError('invalidDateRange') && leaveForm.touched)" class="text-end text-danger small">
+            <small>Dates selected are non-working dates</small>
+          </div>
+
+
         </div>
 
         <div class="mb-3 fw-bold">
