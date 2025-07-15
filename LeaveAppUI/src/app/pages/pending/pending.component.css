@@ -5,20 +5,11 @@ body {
   background-color: #f8f6ff;
 }
 
-.container {
+.container-fluid {
   display: flex;
   flex-direction: column;
   height: 100vh;
-}
-
-.header {
-  background-color: #A100FF;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  font-size: 28px;
-  font-weight: bold;
-  letter-spacing: 1px;
+  margin-top:70px;
 }
 
 .main-layout {
@@ -99,7 +90,7 @@ body {
 }
 
 .arrow-btn {
-  background-color: #A100FF;
+  background-color: #d4b6ff;
   color: white;
   border: none;
   border-radius: 8px;
@@ -108,6 +99,9 @@ body {
   cursor: pointer;
   height: 40px;
   align-self: center;
+}
+.arrow-btn:hover{
+  background-color: #A100FF;
 }
 
 .details-modal {
@@ -129,6 +123,8 @@ body {
   overflow-y: auto;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   position: relative;
+  margin-top: 150px;
+  margin-bottom:40px;
 }
 
 .details-content h2 {
@@ -244,6 +240,14 @@ body {
 .close-btn:hover {
   color: #A100FF;
 }
+
+ul.no-bullets {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+
 
 
 

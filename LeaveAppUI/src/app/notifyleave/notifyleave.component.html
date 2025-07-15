@@ -1,19 +1,10 @@
+<div class="container-notifyleave">
 <div *ngIf="!leaveForm.valid && formSubmitted" class="alert alert-danger alert-dismissible fade show" role="alert">
   <strong>Error!</strong> Please fill in all required fields before submitting the form.
   <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
 </div>
 <div class="page-wrapper my-5">
   <div class="card shadow-lg p-0">
-    <div class="card-header d-flex align-items-center justify-content-between text-white px-4 py-3" style="position: relative; background-color: #A100FF;">
-      <h5 class="m-0 mx-auto fw-bold" style="color: white">Notify Leave</h5>
-      <button
-        type="button"
-        class="btn btn-secondary position-absolute end-0 me-4"
-        style="z-index: 9999; background-color: black;"
-        (click)="goToPending()">
-        Leave Requests
-      </button>
-    </div>
     <div class="card-body">
       <form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">
 
@@ -33,9 +24,7 @@
         <div class="mb-3 fw-bold">
           <label for="availedBy" class="form-label"><span class="text-danger">*</span>Availed By </label>
           <ng-select [items]="listOfUsers" bindLabel="name"   bindValue="name" placeholder="Enter Username"
-            formControlName="availedBy" [searchable]="true" [clearable]="true" [ngClass]="{
-    'is-invalid': leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched
-  }">
+            formControlName="availedBy" [searchable]="true" [clearable]="true" [ngClass]="{'is-invalid': leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched}">
             <ng-template ng-option-tmp let-item="item">
               {{ item.name }} — {{ item.userEmail }}
             </ng-template>
@@ -231,4 +220,5 @@
       </form>
     </div>
   </div>
+</div>
 </div>

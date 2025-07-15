@@ -1,3 +1,6 @@
+.container-notifyleave{
+  margin-top:80px;
+}
 .page-wrapper::before {
   content: "";
   position: absolute;
@@ -25,4 +28,8 @@
 ::ng-deep ng-select .ng-option {
   font-weight: normal !important;
 }
+body {
+  padding-top: 70px; 
+}
+
 
