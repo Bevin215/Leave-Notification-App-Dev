@@ -17,6 +17,8 @@ export class dropdownService {
   }
 
   saveLeaveForm(data: any) {
-  return this.hc.post('http://localhost:8080/api/leave/submit', data);
+  return this.hc.post('http://localhost:8080/api/leave/submit', data, { responseType: 'text' });
+
 }
+
 }

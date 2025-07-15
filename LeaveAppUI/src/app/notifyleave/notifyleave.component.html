@@ -32,10 +32,18 @@
 
         <div class="mb-3 fw-bold">
           <label for="availedBy" class="form-label"><span class="text-danger">*</span>Availed By </label>
-          <ng-select [items]="listOfUsers" bindLabel="name"   bindValue="name" placeholder="Enter Username"
-            formControlName="availedBy" [searchable]="true" [clearable]="true" [ngClass]="{
-    'is-invalid': leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched
-  }">
+          <ng-select  [items]="filteredUsers"
+    bindLabel="name"
+    bindValue="name"
+    placeholder="Enter Username"
+    formControlName="availedBy"
+    [searchable]="true"
+    [clearable]="true"
+    [loading]="loading"
+    (search)="onSearch($event)"
+    [ngClass]="{
+      'is-invalid': leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched
+    }">
             <ng-template ng-option-tmp let-item="item">
               {{ item.name }} — {{ item.userEmail }}
             </ng-template>

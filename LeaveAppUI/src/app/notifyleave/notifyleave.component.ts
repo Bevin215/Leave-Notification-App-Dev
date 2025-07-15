@@ -7,6 +7,7 @@ import{dropdownService} from '../Services/dropdown.service';
 export interface listOfUsers {
   id: number;
   name: string;
+  userEmail: string;
 }
 @Component({
   selector: 'app-notifyleave',
@@ -118,24 +119,6 @@ onCommentSecInput(): void {
   }
 }
 
-
-
-
-//  listOfUsers = [
-//     { id: 1, name: "Vimala, Polagani", email: "polagani.vimala@accenture.com" },
-//     { id: 2, name: "Bevin, John", email: "bevin.john@accenture.com" },
-//     { id: 3, name: "Logesh, Ravichandran", email: "logesh.r@accenture.com" },
-//     { id: 4, name: "Mark, Daniel", email: "mark.daniel@accenture.com" },
-//   ];
-//   leaveOptions = ['Sick Off', 'Planned Vacation', 'Unplanned Leave', 'Floating', 'Compensatory Off', 'Bereavement'];
-
-
-//   locations = ['Bengaluru', 'Chennai', 'Hyderabad', 'Ahmedabad', 'Coimbatore', 'Gurugram', 'Kolkata', 'Mumbai', 'New Delhi', 'Noida', 'Pune', 'Indore', 'Jaipur', 'Other'];
-//   projects = ['1136', '1286', 'Yet to onboard', 'PMO', 'Leadership'];
-//   subLobteams = ['FCT QA', 'FCT DEV', 'Mobile QA', 'Mobile DEV', 'ECVT QA', 'ECVT DEV', 'DPT-QA', 'DPT-DEV', 'EPT QA', 'EPT DEV', 'PMO', 'Yet to Onboard', 'Leadership'];
-//   leaveStatus = ['Availed', 'planned', 'Cancelled']
-
-
   minStartDateValidator(control: AbstractControl): ValidationErrors | null {
   const start = control.get('startDate')?.value;
   if (start) {
@@ -217,8 +200,11 @@ onCommentSecInput(): void {
     const item = this.listOfUsers.find((item: { name: any; }) => item.name === this.leaveForm.value.availedBy);
     const formData = {
       ...this.leaveForm.value,
-      userId: item.id,
-      timestamp: new Date().toISOString()
+      userId: item.userId,
+      leadId: item.leadId,
+      userLevel: item.userLevel,
+      leadLevel: item.leadLevel,
+      //timestamp: new Date().toISOString()
     };
 
     this.ds.saveLeaveForm(formData).subscribe({
@@ -256,5 +242,28 @@ goToPending() {
     this.router.navigate(['/pending']);
   }
 
+
+filteredUsers: any[] = [];
+loading = false;
+
+onSearch(event: { term: string; items: listOfUsers[] }): void {
+  const term = event.term;
+
+  if (term.length < 3) {
+    this.filteredUsers = [];
+    return;
+  }
+
+  this.loading = true;
+
+  setTimeout(() => {
+    this.filteredUsers = this.listOfUsers.filter((user:any) =>
+      user.name.toLowerCase().includes(term.toLowerCase()) ||
+      user.userEmail.toLowerCase().includes(term.toLowerCase())
+    );
+    this.loading = false;
+  }, 300);
+}
  
+
 }
