@@ -6,7 +6,7 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 import{dropdownService} from '../Services/dropdown.service';
 
 
-import { HolidayService } from 'src/app/Services/Holiday.service';
+import { HolidayService } from '../Services/holiday.service';
 export interface listOfUsers {
   id: number;
   name: string;
@@ -244,10 +244,10 @@ onBackupChange() {
   this.backupSelect.searchTerm = '';
  }
 
-goToPending() {
-    this.router.navigate(['/pending']);
-  }
-
+goToPending(): void {
+  const url = `${window.location.origin}/pending`;
+  window.open(url, '_blank');
+}
 
 filteredUsers: any[] = [];
 loading = false;
