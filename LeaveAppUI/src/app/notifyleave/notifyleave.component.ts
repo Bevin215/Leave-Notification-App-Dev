@@ -2,11 +2,15 @@ import { Component, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgSelectComponent } from '@ng-select/ng-select';
+
 import{dropdownService} from '../Services/dropdown.service';
 
+
+import { HolidayService } from 'src/app/Services/Holiday.service';
 export interface listOfUsers {
   id: number;
   name: string;
+  userEmail: string;
 }
 @Component({
   selector: 'app-notifyleave',
@@ -18,6 +22,7 @@ export interface listOfUsers {
 
 
 export class NotifyleaveComponent {
+
 leaveOptions: string[] = [];
   locations: string[] = [];
   projects: string[] = [];
@@ -25,8 +30,9 @@ leaveOptions: string[] = [];
   leaveStatus: string[] = [];
   listOfUsers: any;
 
-  constructor(private fb: FormBuilder,private router: Router,private ds:dropdownService) { }
+  constructor(private fb: FormBuilder,private router: Router,private ds:dropdownService,private holidayService: HolidayService) { }
 
+  leaveDays!: any;
   leaveForm = new FormGroup({
     leaveType: new FormControl(),
     availedBy: new FormControl(),
@@ -65,7 +71,7 @@ leaveOptions: string[] = [];
       return { invalidChars: true };
     }
 
-    
+
     const length = value.replace(/\s{2,}/g, ' ').length;
     if (length > 100) {
       return { maxLength: true };
@@ -119,6 +125,7 @@ onCommentSecInput(): void {
 }
 
 
+<<<<<<< HEAD
 
 
 
@@ -137,6 +144,8 @@ onCommentSecInput(): void {
 //   leaveStatus = ['Availed', 'planned', 'Cancelled']
 
 
+=======
+>>>>>>> 2d898a599b3efeb2f7bf82ce72e7c116bb4b48bc
   minStartDateValidator(control: AbstractControl): ValidationErrors | null {
   const start = control.get('startDate')?.value;
   if (start) {
@@ -186,40 +195,43 @@ onCommentSecInput(): void {
       comments: ["", [this.commentSecValidator()]],
     },
   { validators: [this.dateRangeValidator, this.minStartDateValidator] });
+    this.leaveForm.get('startDate')?.valueChanges.subscribe(() => this.onDateChange());
+    this.leaveForm.get('endDate')?.valueChanges.subscribe(() => this.onDateChange());
+  }
+  onDateChange(): void {
+    const start = this.leaveForm.get('startDate')?.value;
+    const end = this.leaveForm.get('endDate')?.value;
+    if (start && end) {
+      console.log(start+end);
+      this.holidayService.calculateLeaveDays(start, end).subscribe(days => {
+        this.leaveDays = days;
+      });
+    }
   }
 
   today: string = new Date().toISOString().split('T')[0];
 
 
- 
+
 
   formSubmitted = false;
   showAlert = false;
 
-  // onSubmit() {
-  //   this.leaveForm.markAllAsTouched();
-  //   this.formSubmitted = true;
-  //   if (this.leaveForm.valid) {
-  //     console.log('Form Submitted', this.leaveForm.value);
-  //     this.router.navigate(['/success']);
-  //   } else {
-  //     console.log('Form is not valid!');
-  //     this.showAlert = true;
-  //   }
-  //   console.log("Default selected user:", this.leaveForm.get('availedBy')?.value);
 
 
-  // }
   onSubmit() {
   this.leaveForm.markAllAsTouched();
   this.formSubmitted = true;
 
-  if (this.leaveForm.valid) {
+  if (this.leaveForm.valid && this.leaveDays>0) {
     const item = this.listOfUsers.find((item: { name: any; }) => item.name === this.leaveForm.value.availedBy);
     const formData = {
       ...this.leaveForm.value,
-      userId: item.id,
-      timestamp: new Date().toISOString()
+      userId: item.userId,
+      leadId: item.leadId,
+      userLevel: item.userLevel,
+      leadLevel: item.leadLevel,
+      //timestamp: new Date().toISOString()
     };
 
     this.ds.saveLeaveForm(formData).subscribe({
@@ -252,12 +264,42 @@ onNotifyChange() {
 onBackupChange() {
   this.backupSelect.searchTerm = '';
  }
+<<<<<<< HEAD
  
 goToPending(): void {
   const url = `${window.location.origin}/pending`;
   window.open(url, '_blank');
 }
 
+=======
 
- 
+goToPending() {
+    this.router.navigate(['/pending']);
+  }
+>>>>>>> 2d898a599b3efeb2f7bf82ce72e7c116bb4b48bc
+
+
+filteredUsers: any[] = [];
+loading = false;
+
+onSearch(event: { term: string; items: listOfUsers[] }): void {
+  const term = event.term;
+
+  if (term.length < 3) {
+    this.filteredUsers = [];
+    return;
+  }
+
+  this.loading = true;
+
+  setTimeout(() => {
+    this.filteredUsers = this.listOfUsers.filter((user:any) =>
+      user.name.toLowerCase().includes(term.toLowerCase()) ||
+      user.userEmail.toLowerCase().includes(term.toLowerCase())
+    );
+    this.loading = false;
+  }, 300);
+}
+
+
 }
