@@ -6,7 +6,7 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 import{dropdownService} from '../Services/dropdown.service';
 
 
-import { HolidayService } from 'src/app/Services/Holiday.service';
+import { HolidayService } from '../Services/holiday.service';
 export interface listOfUsers {
   id: number;
   name: string;
@@ -125,27 +125,6 @@ onCommentSecInput(): void {
 }
 
 
-<<<<<<< HEAD
-
-
-
-//  listOfUsers = [
-//     { id: 1, name: "Vimala, Polagani", email: "polagani.vimala@accenture.com" },
-//     { id: 2, name: "Bevin, John", email: "bevin.john@accenture.com" },
-//     { id: 3, name: "Logesh, Ravichandran", email: "logesh.r@accenture.com" },
-//     { id: 4, name: "Mark, Daniel", email: "mark.daniel@accenture.com" },
-//   ];
-//   leaveOptions = ['Sick Off', 'Planned Vacation', 'Unplanned Leave', 'Floating', 'Compensatory Off', 'Bereavement'];
-
-
-//   locations = ['Bengaluru', 'Chennai', 'Hyderabad', 'Ahmedabad', 'Coimbatore', 'Gurugram', 'Kolkata', 'Mumbai', 'New Delhi', 'Noida', 'Pune', 'Indore', 'Jaipur', 'Other'];
-//   projects = ['1136', '1286', 'Yet to onboard', 'PMO', 'Leadership'];
-//   subLobteams = ['FCT QA', 'FCT DEV', 'Mobile QA', 'Mobile DEV', 'ECVT QA', 'ECVT DEV', 'DPT-QA', 'DPT-DEV', 'EPT QA', 'EPT DEV', 'PMO', 'Yet to Onboard', 'Leadership'];
-//   leaveStatus = ['Availed', 'planned', 'Cancelled']
-
-
-=======
->>>>>>> 2d898a599b3efeb2f7bf82ce72e7c116bb4b48bc
   minStartDateValidator(control: AbstractControl): ValidationErrors | null {
   const start = control.get('startDate')?.value;
   if (start) {
@@ -264,20 +243,11 @@ onNotifyChange() {
 onBackupChange() {
   this.backupSelect.searchTerm = '';
  }
-<<<<<<< HEAD
- 
+
 goToPending(): void {
   const url = `${window.location.origin}/pending`;
   window.open(url, '_blank');
 }
-
-=======
-
-goToPending() {
-    this.router.navigate(['/pending']);
-  }
->>>>>>> 2d898a599b3efeb2f7bf82ce72e7c116bb4b48bc
-
 
 filteredUsers: any[] = [];
 loading = false;
