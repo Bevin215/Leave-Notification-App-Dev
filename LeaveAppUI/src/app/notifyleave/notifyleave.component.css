@@ -1,19 +1,4 @@
-.container-notifyleave{
-  margin-top:80px;
-}
-.page-wrapper::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 80%;
-  background-image: url('/assets/images/bg.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.07; 
-}
+
 .btn{
   display:block;
   margin-left:auto;
@@ -28,8 +13,39 @@
 ::ng-deep ng-select .ng-option {
   font-weight: normal !important;
 }
-body {
-  padding-top: 70px; 
+::ng-deep ng-select .ng-select-container .ng-arrow-wrapper {
+  display: none;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+
+
+.start-date-icon {
+  position: absolute;
+  margin-top: -20px;
+  margin-right: 20px;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #2a2a2a;
+  font-size: 1.25rem;
+  user-select: none;
+}
+
+
+.end-date-icon {
+  position: absolute;
+  margin-top: -20px;
+  margin-right: 20px;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #2a2a2a;
+  font-size: 1.25rem;
+  user-select: none;
+}
 

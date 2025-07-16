@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { NgSelectComponent } from '@ng-select/ng-select';
 
 import{dropdownService} from '../Services/dropdown.service';
-
-
 import { HolidayService } from '../Services/holiday.service';
+
+
+
 export interface listOfUsers {
   id: number;
   name: string;
@@ -29,6 +30,7 @@ leaveOptions: string[] = [];
   subLobteams: string[] = [];
   leaveStatus: string[] = [];
   listOfUsers: any;
+  searchLength = 0;
 
   constructor(private fb: FormBuilder,private router: Router,private ds:dropdownService,private holidayService: HolidayService) { }
 
@@ -167,15 +169,17 @@ onCommentSecInput(): void {
       reason: ["", [this.briefReasonValidator()]],
       backupContact: [[], Validators.required],
       notifyTo: [[], Validators.required],
-      baseLocation: [null, Validators.required], 
+      baseLocation: [null, Validators.required],
       projectSow: [null, Validators.required],
       subLobTeam: [null, Validators.required],
       leaveStatus: ['Availed', Validators.required],
       comments: ["", [this.commentSecValidator()]],
     },
   { validators: [this.dateRangeValidator, this.minStartDateValidator] });
+  this.onDateChange();
     this.leaveForm.get('startDate')?.valueChanges.subscribe(() => this.onDateChange());
     this.leaveForm.get('endDate')?.valueChanges.subscribe(() => this.onDateChange());
+    this.onDateChange();
   }
   onDateChange(): void {
     const start = this.leaveForm.get('startDate')?.value;
@@ -216,7 +220,7 @@ onCommentSecInput(): void {
     this.ds.saveLeaveForm(formData).subscribe({
       next: (response) => {
         console.log('Form data saved:', response);
-        this.router.navigate(['/success']); 
+        this.router.navigate(['/success']);
       },
       error: (err) => {
         console.error('Error saving form data', err);
@@ -244,16 +248,55 @@ onBackupChange() {
   this.backupSelect.searchTerm = '';
  }
 
-goToPending(): void {
-  const url = `${window.location.origin}/pending`;
-  window.open(url, '_blank');
-}
+goToPending() {
+    this.router.navigate(['/pending']);
+  }
+
 
 filteredUsers: any[] = [];
-loading = false;
+filteredBackupUsers: listOfUsers[] = [];
+filteredNotifyUsers: listOfUsers[] = [];
 
+loading = false;
+onBackupSearch(event: { term: string }) {
+  const term = event.term;
+  this.searchLength = term.length;
+
+  if (term.length < 3) {
+    this.filteredBackupUsers = [];
+    return;
+  }
+
+  this.filteredBackupUsers = this.listOfUsers.filter((user: { userEmail: string; }) =>
+    user.userEmail.toLowerCase().includes(term.toLowerCase())
+  );
+}
+onBackupInput(event: any): void {
+  if (event.target.value.length > 20) {
+    event.target.value = event.target.value.slice(0, 20);
+  }
+}
+onNotifySearch(event: { term: string }) {
+  const term = event.term;
+  this.searchLength = term.length;
+
+  if (term.length < 3) {
+    this.filteredNotifyUsers = [];
+    return;
+  }
+
+  this.filteredNotifyUsers = this.listOfUsers.filter((user: { userEmail: string; }) =>
+    user.userEmail.toLowerCase().includes(term.toLowerCase())
+  );
+}
+onNotifyInput(event: any): void {
+  if (event.target.value.length > 20) {
+    event.target.value = event.target.value.slice(0, 20);
+  }
+}
 onSearch(event: { term: string; items: listOfUsers[] }): void {
   const term = event.term;
+  this.searchLength = term.length;
 
   if (term.length < 3) {
     this.filteredUsers = [];
@@ -270,6 +313,12 @@ onSearch(event: { term: string; items: listOfUsers[] }): void {
     this.loading = false;
   }, 300);
 }
+
+  onInputChange(event: any): void {
+    if (event.target.value.length > 20) {
+      event.target.value = event.target.value.slice(0, 20);
+    }
+  }
 
 
 }
