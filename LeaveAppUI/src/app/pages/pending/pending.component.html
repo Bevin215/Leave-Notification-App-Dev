@@ -8,7 +8,12 @@
       </ul>
     </nav>
     <section class="content">
-      <div class="card p-1 leave-card" *ngFor="let leave of visibleLeaves" (click)="openDetails(leave)">
+      <div *ngIf="visibleLeaves.length === 0" class="text-center mt-5 text-muted font-weight: 500; font-size: 1.2rem;">
+        <h5>No Pending Requests are available</h5>
+      </div>
+      <div class="row">
+      <div class="card p-1 leave-card" *ngFor="let leave of visibleLeaves.slice().reverse()" (click)="openDetails(leave)">
+        <div class="blue-strip"></div>
         <div class="card-body m-1 p-0 ">
           <div class="container p-4 pb-0 pt-5 ">
             <div class="row mb-4">
@@ -35,11 +40,9 @@
               <div class="col-md-3 col-sm-6 mb-2">
                 <strong>Team:</strong> {{ leave.subLobTeam }}
               </div>
-              <div class="col-md-2 col-sm-6 mb-2 d-flex justify-content-center">
-                <button class="btn  arrow-btn">➔</button>
-              </div>
             </div>
           </div>
+        </div>
         </div>
         </div>
     </section>

@@ -65,6 +65,7 @@ export class PendingComponent implements OnInit {
   ngOnInit(): void {
     this.myService.getEmp().subscribe({
       next: (data: usersadmin[]) => {
+        console.log('Data saved in DB')
         this.pendingLeaves = data;
       },
       error: (err) => {
@@ -113,9 +114,10 @@ export class PendingComponent implements OnInit {
   }
  
   confirmReject() {
-  if (this.rejectionComment.trim()) {
-    this.selectedLeave.approvalstatus = 'Rejected';   
-    this.selectedLeave.leadComments = this.rejectionComment; 
+  const trimmedComment = this.rejectionComment.trim();
+  if (trimmedComment) {
+    this.selectedLeave.approvalstatus = 'Rejected';
+    this.selectedLeave.leadComments = trimmedComment;
 
     this.myService.saveLeave(this.selectedLeave).subscribe({
       next: () => {
@@ -127,6 +129,7 @@ export class PendingComponent implements OnInit {
     });
   }
 }
+
 
  
   closeDetails() {
