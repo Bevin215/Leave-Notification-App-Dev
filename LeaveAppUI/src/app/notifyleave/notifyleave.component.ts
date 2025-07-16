@@ -6,7 +6,7 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 import{dropdownService} from '../Services/dropdown.service';
 
 
-import { HolidayService } from 'src/app/Services/Holiday.service';
+import { HolidayService } from 'src/app/Services/holiday.service';
 export interface listOfUsers {
   id: number;
   name: string;
@@ -167,13 +167,14 @@ onCommentSecInput(): void {
       reason: ["", [this.briefReasonValidator()]],
       backupContact: [[], Validators.required],
       notifyTo: [[], Validators.required],
-      baseLocation: [null, Validators.required], 
+      baseLocation: [null, Validators.required],
       projectSow: [null, Validators.required],
       subLobTeam: [null, Validators.required],
       leaveStatus: ['Availed', Validators.required],
       comments: ["", [this.commentSecValidator()]],
     },
   { validators: [this.dateRangeValidator, this.minStartDateValidator] });
+  this.onDateChange();
     this.leaveForm.get('startDate')?.valueChanges.subscribe(() => this.onDateChange());
     this.leaveForm.get('endDate')?.valueChanges.subscribe(() => this.onDateChange());
   }
@@ -216,7 +217,7 @@ onCommentSecInput(): void {
     this.ds.saveLeaveForm(formData).subscribe({
       next: (response) => {
         console.log('Form data saved:', response);
-        this.router.navigate(['/success']); 
+        this.router.navigate(['/success']);
       },
       error: (err) => {
         console.error('Error saving form data', err);
