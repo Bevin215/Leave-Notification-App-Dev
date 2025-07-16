@@ -16,3 +16,36 @@
 ::ng-deep ng-select .ng-select-container .ng-arrow-wrapper {
   display: none;
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+
+
+.start-date-icon {
+  position: absolute;
+  margin-top: -20px;
+  margin-right: 20px;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #2a2a2a;
+  font-size: 1.25rem;
+  user-select: none;
+}
+
+
+.end-date-icon {
+  position: absolute;
+  margin-top: -20px;
+  margin-right: 20px;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #2a2a2a;
+  font-size: 1.25rem;
+  user-select: none;
+}
+
