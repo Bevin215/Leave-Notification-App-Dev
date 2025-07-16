@@ -38,6 +38,10 @@
             <ng-template ng-option-tmp let-item="item">
               {{ item.name }} — {{ item.userEmail }}
             </ng-template>
+            <ng-template ng-notfound-tmp>
+    <span *ngIf="searchLength < 3" class="text-muted" style="font-weight: normal;">Type at least 3 characters to search.</span>
+    <span *ngIf="searchLength >= 3" class="text-muted" style="font-weight: normal;">No matching users found.</span>
+  </ng-template>
           </ng-select>
           <div *ngIf="leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched" class="text-danger">
             <small *ngIf="leaveForm.get('availedBy')?.hasError('required')">This field is required.</small>
@@ -138,6 +142,7 @@
           <ng-template ng-option-tmp let-item="item">
             {{ item.name }} — {{ item.email }}
           </ng-template>
+          
 
           <div *ngIf="leaveForm.get('backupContact')?.invalid && leaveForm.get('backupContact')?.touched"
             class="text-danger">

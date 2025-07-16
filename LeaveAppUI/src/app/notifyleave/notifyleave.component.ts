@@ -30,6 +30,7 @@ leaveOptions: string[] = [];
   subLobteams: string[] = [];
   leaveStatus: string[] = [];
   listOfUsers: any;
+  searchLength = 0;
 
   constructor(private fb: FormBuilder,private router: Router,private ds:dropdownService,private holidayService: HolidayService) { }
 
@@ -177,6 +178,7 @@ onCommentSecInput(): void {
   { validators: [this.dateRangeValidator, this.minStartDateValidator] });
     this.leaveForm.get('startDate')?.valueChanges.subscribe(() => this.onDateChange());
     this.leaveForm.get('endDate')?.valueChanges.subscribe(() => this.onDateChange());
+    this.onDateChange();
   }
   onDateChange(): void {
     const start = this.leaveForm.get('startDate')?.value;
@@ -257,6 +259,7 @@ filteredNotifyUsers: listOfUsers[] = [];
 loading = false;
 onBackupSearch(event: { term: string }) {
   const term = event.term;
+  this.searchLength = term.length;
 
   if (term.length < 3) {
     this.filteredBackupUsers = [];
@@ -274,6 +277,7 @@ onBackupInput(event: any): void {
 }
 onNotifySearch(event: { term: string }) {
   const term = event.term;
+  this.searchLength = term.length;
 
   if (term.length < 3) {
     this.filteredNotifyUsers = [];
@@ -291,6 +295,7 @@ onNotifyInput(event: any): void {
 }
 onSearch(event: { term: string; items: listOfUsers[] }): void {
   const term = event.term;
+  this.searchLength = term.length;
 
   if (term.length < 3) {
     this.filteredUsers = [];
