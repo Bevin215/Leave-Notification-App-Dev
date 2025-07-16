@@ -1,6 +1,4 @@
-<div class="container">
-  <header class="header">Leave Requests</header>
-
+<div class="container-fluid">
   <div class="main-layout">
     <nav class="sidebar">
       <ul>
@@ -9,54 +7,91 @@
         <li [class.active]="currentTab === 'Rejected'" (click)="setTab('Rejected')">Rejected</li>
       </ul>
     </nav>
-
     <section class="content">
-      <div class="leave-card" *ngFor="let leave of visibleLeaves" (click)="openDetails(leave)">
-        <div class="card-first">
-          <p><strong>Leave Type:</strong> {{ leave.type }}</p>
-          <h5>Name: {{ leave.name }}</h5>
+      <div class="card p-1 leave-card" *ngFor="let leave of visibleLeaves" (click)="openDetails(leave)">
+        <div class="card-body m-1 p-0 ">
+          <div class="container p-4 pb-0 pt-5 ">
+            <div class="row mb-4">
+              <div class="col-md-4 col-sm-6 mb-2">
+                <strong>Leave Type:</strong> {{ leave.leaveType }}
+              </div>
+              <div class="col-md-3 col-sm-6 mb-2">
+                <strong>From:</strong> {{ leave.startDate }}
+              </div>
+              <div class="col-md-3 col-sm-6 mb-2">
+                <strong>Project:</strong> {{ leave.projectSow }}
+              </div>
+              <div class="col-md-2 col-sm-6 mb-2">
+                <strong>No of Days:</strong> {{ leave.leaveCount }}
+              </div>        
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-4 col-sm-6 mb-2">
+                <strong>Name:</strong> {{ leave.availedBy }}
+              </div>
+              <div class="col-md-3 col-sm-6 mb-2">
+                <strong>To:</strong> {{ leave.endDate }}
+              </div>
+              <div class="col-md-3 col-sm-6 mb-2">
+                <strong>Team:</strong> {{ leave.subLobTeam }}
+              </div>
+              <div class="col-md-2 col-sm-6 mb-2 d-flex justify-content-center">
+                <button class="btn  arrow-btn">➔</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card-date">
-          <p><strong>From:</strong> {{ leave.startDate }}</p>
-          <p><strong>To:</strong> {{ leave.endDate }}</p>
         </div>
-        <div class="card-branch">
-          <p><strong>Proj:</strong> {{ leave.project }}</p>
-          <p><strong>Team:</strong> {{ leave.team }}</p>
-        </div>
-        <button class="arrow-btn">➔</button>
-      </div>
     </section>
   </div>
-
+ 
   <div class="details-modal" *ngIf="selectedLeave">
     <div class="reject-modal" *ngIf="showRejectPopup">
       <div class="reject-content">
         <h3>Reject Leave Request</h3>
-        <textarea [(ngModel)]="rejectionComment" placeholder="Reason for rejection..." rows="4"></textarea>
+        <textarea [(ngModel)]="rejectionComment" placeholder="Please provide a reason for rejecting (max 100 characters)"   #rejectionCommentCtrl="ngModel" rows="4" maxlength="100" (input)="validateRejectionComment(rejectionComment)"></textarea>
+        <div class="text-end small text-muted mt-1">
+          {{ rejectionCommentLength }}/100 characters
+        </div>
+        <div *ngIf="rejectionCommentLength === 100" class="text-warning small">
+          Sorry, you could not exceed the character limit ( > 100 characters).
+        </div>
+        <div *ngIf="rejectionCommentLength > 0 || rejectionErrors.containsEmoji" class="text-danger small mt-1">
+            <div *ngIf="rejectionErrors.containsEmoji  ">Emojis are not allowed.</div>
+            <div *ngIf="rejectionErrors.numbersOnly">Cannot be only numbers.</div>
+            <div *ngIf="rejectionErrors.invalidChars">Only letters, digits, '.', ',' and '-' allowed.</div>
+            <div *ngIf="rejectionErrors.maxLength">Maximum 100 character</div>
+        </div>
         <div class="reject-actions">
-          <button class="btn btn-danger" [disabled]="!rejectionComment.trim()" (click)="confirmReject()">Reject</button>
+          <button class="btn btn-danger"[disabled]="!rejectionComment.trim() ||rejectionErrors.containsEmoji ||rejectionErrors.numbersOnly ||rejectionErrors.invalidChars ||rejectionErrors.maxLength"
+            (click)="confirmReject()">Reject</button>
           <button class="btn btn-secondary" (click)="cancelReject()">Cancel</button>
         </div>
       </div>
     </div>
-
+ 
     <div class="details-content">
       <button class="close-btn" (click)="closeDetails()">×</button>
       <h2>Leave Details</h2>
-      <p><strong>Availed By:</strong> {{ selectedLeave.name }}</p>
-      <p><strong>Type:</strong> {{ selectedLeave.type }}</p>
+      <p><strong>Availed By:</strong> {{ selectedLeave.availedBy }}</p>
+      <p><strong>Type:</strong> {{ selectedLeave.leaveType }}</p>
       <p><strong>Start:</strong> {{ selectedLeave.startDate }}</p>
       <p><strong>End:</strong> {{ selectedLeave.endDate }}</p>
       <p><strong>Reason:</strong> {{ selectedLeave.reason }}</p>
-      <p><strong>Backup Contact(s):</strong> {{ selectedLeave.backupContact }}</p>
-      <p><strong>Notify To:</strong> {{ selectedLeave.notifyTo }}</p>
-      <p><strong>Location:</strong> {{ selectedLeave.location }}</p>
-      <p><strong>Project:</strong> {{ selectedLeave.project }}</p>
-      <p><strong>Team:</strong> {{ selectedLeave.team }}</p>
-      <p><strong>Status:</strong> {{ selectedLeave.status }}</p>
+      <p><strong>Backup Contact(s):</strong></p>
+      <ul class="no-bullets">
+        <li *ngFor="let contact of selectedLeave.backupContacts">{{ selectedLeave.backupContacts }}</li>
+      </ul>
+      <p><strong>Notify To:</strong></p>
+      <ul class="no-bullets">
+        <li *ngFor="let notify of selectedLeave.notifyToRecipients">{{ selectedLeave.notifyToRecipients }}</li>
+      </ul>
+      <p><strong>Location:</strong> {{ selectedLeave.baseLocation }}</p>
+      <p><strong>Project:</strong> {{ selectedLeave.projectSow }}</p>
+      <p><strong>Team:</strong> {{ selectedLeave.subLobTeam }}</p>
+      <p><strong>Status:</strong> {{ selectedLeave.leaveStatus }}</p>
       <p><strong>Comments:</strong> {{ selectedLeave.comments }}</p>
-
+ 
       <div class="action-buttons" *ngIf="currentTab === 'Pending'">
         <button (click)="approveLeave()">Approve</button>
         <button (click)="rejectLeave()">Reject</button>
@@ -64,5 +99,3 @@
     </div>
   </div>
 </div>
-
- 

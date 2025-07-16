@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormSubmittedComponent } from './form-submitted/form-submitted.component';
 import { PendingComponent } from './pages/pending/pending.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { PendingComponent } from './pages/pending/pending.component';
     NotifyleaveComponent,
     FormSubmittedComponent,
     PendingComponent,
+    NavbarComponent,
 
 
   ],

@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { NgSelectComponent } from '@ng-select/ng-select';
 
 import{dropdownService} from '../Services/dropdown.service';
+import { HolidayService } from '../Services/holiday.service';
 
 
-import { HolidayService } from 'src/app/Services/holiday.service';
+
 export interface listOfUsers {
   id: number;
   name: string;
@@ -251,8 +252,44 @@ goToPending() {
 
 
 filteredUsers: any[] = [];
-loading = false;
+filteredBackupUsers: listOfUsers[] = [];
+filteredNotifyUsers: listOfUsers[] = [];
 
+loading = false;
+onBackupSearch(event: { term: string }) {
+  const term = event.term;
+
+  if (term.length < 3) {
+    this.filteredBackupUsers = [];
+    return;
+  }
+
+  this.filteredBackupUsers = this.listOfUsers.filter((user: { userEmail: string; }) =>
+    user.userEmail.toLowerCase().includes(term.toLowerCase())
+  );
+}
+onBackupInput(event: any): void {
+  if (event.target.value.length > 20) {
+    event.target.value = event.target.value.slice(0, 20);
+  }
+}
+onNotifySearch(event: { term: string }) {
+  const term = event.term;
+
+  if (term.length < 3) {
+    this.filteredNotifyUsers = [];
+    return;
+  }
+
+  this.filteredNotifyUsers = this.listOfUsers.filter((user: { userEmail: string; }) =>
+    user.userEmail.toLowerCase().includes(term.toLowerCase())
+  );
+}
+onNotifyInput(event: any): void {
+  if (event.target.value.length > 20) {
+    event.target.value = event.target.value.slice(0, 20);
+  }
+}
 onSearch(event: { term: string; items: listOfUsers[] }): void {
   const term = event.term;
 
@@ -271,6 +308,12 @@ onSearch(event: { term: string; items: listOfUsers[] }): void {
     this.loading = false;
   }, 300);
 }
+
+  onInputChange(event: any): void {
+    if (event.target.value.length > 20) {
+      event.target.value = event.target.value.slice(0, 20);
+    }
+  }
 
 
 }
