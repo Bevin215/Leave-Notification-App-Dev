@@ -28,7 +28,7 @@
               </div>
               <div class="col-md-2 col-sm-6 mb-2">
                 <strong>No of Days:</strong> {{ leave.leaveCount }}
-              </div>        
+              </div>
             </div>
             <div class="row mb-4">
               <div class="col-md-4 col-sm-6 mb-2">
@@ -38,7 +38,7 @@
                 <strong>To:</strong> {{ leave.endDate }}
               </div>
               <div class="col-md-3 col-sm-6 mb-2">
-                <strong>Team:</strong> {{ leave.subLobTeam }}
+                <strong>Team:</strong> {{ leave.subTeam }}
               </div>
             </div>
           </div>
@@ -47,7 +47,7 @@
         </div>
     </section>
   </div>
- 
+
   <div class="details-modal" *ngIf="selectedLeave">
     <div class="reject-modal" *ngIf="showRejectPopup">
       <div class="reject-content">
@@ -72,7 +72,7 @@
         </div>
       </div>
     </div>
- 
+
     <div class="details-content">
       <button class="close-btn" (click)="closeDetails()">×</button>
       <h2>Leave Details</h2>
@@ -94,7 +94,7 @@
       <p><strong>Team:</strong> {{ selectedLeave.subLobTeam }}</p>
       <p><strong>Status:</strong> {{ selectedLeave.leaveStatus }}</p>
       <p><strong>Comments:</strong> {{ selectedLeave.comments }}</p>
- 
+
       <div class="action-buttons" *ngIf="currentTab === 'Pending'">
         <button (click)="approveLeave()">Approve</button>
         <button (click)="rejectLeave()">Reject</button>
