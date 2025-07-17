@@ -10,8 +10,9 @@
 
           <!------------------------------------Leave type------------------------------------->
           <div class="mb-3 fw-bold">
-            <label id="leaveType" name="leaveType" for="leaveType" class="form-label"><span class="text-danger">*</span>Leave Type </label>
-            <ng-select [items]="leaveOptions" placeholder="Select Leave Type" formControlName="leaveType"
+            <label id="leaveType" name="leaveType" for="leaveType" class="form-label"><span
+                class="text-danger">*</span>Leave Type </label>
+            <ng-select [items]="leaveOptions" id="leaveTypeInput" placeholder="Select Leave Type" formControlName="leaveType"
               [class.is-invalid]="leaveForm.get('leaveType')?.invalid && leaveForm.get('leaveType')?.touched"
               [searchable]="true">
             </ng-select>
@@ -23,8 +24,9 @@
 
           <!------------------------------------Availed by------------------------------------->
           <div class="mb-3 fw-bold">
-            <label id="availedBy" name="availedBy" for="availedBy" class="form-label"><span class="text-danger">*</span>Availed By </label>
-            <ng-select [items]="filteredUsers" bindLabel="name" bindValue="name" placeholder="Enter Username"
+            <label id="availedBy" name="availedBy" for="availedBy" class="form-label"><span
+                class="text-danger">*</span>Availed By </label>
+            <ng-select [items]="filteredUsers" id="availedByInput" bindLabel="name" bindValue="name" placeholder="Enter Username"
               formControlName="availedBy" [searchable]="true" [clearable]="true" [loading]="loading"
               (search)="onSearch($event)" (input)="onInputChange($event)" [ngClass]="{
                 'is-invalid': leaveForm.get('availedBy')?.invalid && leaveForm.get('availedBy')?.touched}">
@@ -47,8 +49,9 @@
 
           <!------------------------------------Start date------------------------------------->
           <div class="mb-3 fw-bold">
-            <label id="startDate" name="startDate" for="startDate" class="form-label"><span class="text-danger">*</span>Start Date </label>
-            <input type="date" class="form-control" id="startDate" required formControlName="startDate"
+            <label id="startDate" name="startDate" for="startDate" class="form-label"><span
+                class="text-danger">*</span>Start Date </label>
+            <input type="date" id="startDateInput" class="form-control" id="startDate" required formControlName="startDate"
               [attr.min]="today" [ngClass]="{
       'is-invalid': leaveForm.get('startDate')?.invalid && leaveForm.get('startDate')?.touched
                   || leaveForm.hasError('startDateInPast')}" #dateInputStart />
@@ -67,8 +70,9 @@
 
           <!------------------------------------End date------------------------------------->
           <div class="mb-3 fw-bold">
-            <label id="endDate" name="endDate" for="endDate" class="form-label"><span class="text-danger">*</span>End Date </label>
-            <input type="date" class="form-control" id="endDate" required formControlName="endDate"
+            <label id="endDate" name="endDate" for="endDate" class="form-label"><span class="text-danger">*</span>End
+              Date </label>
+            <input type="date" id="endDateInput" class="form-control" id="endDate" required formControlName="endDate"
               [attr.min]="leaveForm.get('startDate')?.value"
               [ngClass]="{'is-invalid': leaveForm.get('endDate')?.invalid && leaveForm.get('endDate')?.touched}"
               #dateInputEnd />
@@ -94,7 +98,7 @@
           <!------------------------------------Brief reason------------------------------------->
           <div class="mb-3 fw-bold">
             <label id="briefReason" name="briefReason" for="briefReason" class="form-label">Brief Reason</label>
-            <textarea placeholder="Optional - Describe your leave in less than (or) equal to 100 characters"
+            <textarea id="briefReasonInput" placeholder="Optional - Describe your leave in less than (or) equal to 100 characters"
               class="form-control" id="briefReason" rows="3" formControlName="reason" (input)="onBriefReasonInput()"
               maxlength="100">
           </textarea>
@@ -121,18 +125,28 @@
 
           <!------------------------------------Backup contact------------------------------------->
           <div class="mb-3  ">
-            <label id="backupContact" name="backupContact" for="backupContact" class="form-label fw-bold"><span class="text-danger ">*</span>Backup Contact(s)
+            <label id="backupContact" name="backupContact" for="backupContact" class="form-label fw-bold"><span
+                class="text-danger ">*</span>Backup Contact(s)
               <span class="small text-muted">(Acc Peer only. If none, add Supervisor)</span></label>
-            <ng-select #backup [items]="filteredBackupUsers" bindLabel="userEmail" bindValue="userEmail"
+            <ng-select #backup [items]="filteredBackupUsers" id="backupContactInput" bindLabel="userEmail" bindValue="userEmail"
               [multiple]="true" placeholder="Select Backup Contact(s)" formControlName="backupContact"
               [closeOnSelect]="false" [searchable]="true" [clearable]="true" (change)="onBackupChange()"
               (search)="onBackupSearch($event)" (input)="onBackupInput($event)" [ngClass]="{
             'is-invalid': leaveForm.get('backupContact')?.invalid && leaveForm.get('backupContact')?.touched
           }">
+
+              <ng-template ng-option-tmp let-item="item">
+                {{ item.userEmail }}
+              </ng-template>
+              <ng-template ng-notfound-tmp>
+                <span *ngIf="searchLength < 3" class="text-muted" style="font-weight: normal;">
+                  Type at least 3 characters to search.
+                </span>
+                <span *ngIf="searchLength >= 3" class="text-muted" style="font-weight: normal;">
+                  No matching users found.
+                </span>
+              </ng-template>
             </ng-select>
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.name }} — {{ item.email }}
-            </ng-template>
             <div *ngIf="leaveForm.get('backupContact')?.invalid && leaveForm.get('backupContact')?.touched"
               class="text-danger">
               <small class="fw-bold" *ngIf="leaveForm.get('backupContact')?.hasError('required')">This field is
@@ -143,19 +157,28 @@
 
           <!------------------------------------Notify to------------------------------------->
           <div class="mb-3 ">
-            <label id="notifyTo" name="notifyTo" for="notifyTo" class="form-label fw-bold"><span class="text-danger">*</span>Notify To Recipient(s)
+            <label id="notifyTo" name="notifyTo" for="notifyTo" class="form-label fw-bold"><span
+                class="text-danger">*</span>Notify To Recipient(s)
               <span class="small text-muted">(Must add- Acc Supervisor)</span></label>
 
-            <ng-select #notify [items]="filteredNotifyUsers" bindLabel="userEmail" bindValue="userEmail"
+            <ng-select #notify [items]="filteredNotifyUsers" id="notifyToInput" bindLabel="userEmail" bindValue="userEmail"
               [multiple]="true" placeholder="Select Recipient(s)" formControlName="notifyTo" [closeOnSelect]="false"
               [searchable]="true" [clearable]="true" (change)="onNotifyChange()" (search)="onNotifySearch($event)"
               (input)="onNotifyInput($event)" [ngClass]="{
             'is-invalid': leaveForm.get('notifyTo')?.invalid && leaveForm.get('notifyTo')?.touched
           }">
+              <ng-template ng-option-tmp let-item="item">
+                {{ item.name }} — {{ item.userEmail }}
+              </ng-template>
+              <ng-template ng-notfound-tmp>
+                <span *ngIf="searchLength < 3" class="text-muted" style="font-weight: normal;">
+                  Type at least 3 characters to search.
+                </span>
+                <span *ngIf="searchLength >= 3" class="text-muted" style="font-weight: normal;">
+                  No matching users found.
+                </span>
+              </ng-template>
             </ng-select>
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.name }} — {{ item.email }}
-            </ng-template>
 
             <div *ngIf="leaveForm.get('notifyTo')?.invalid && leaveForm.get('notifyTo')?.touched" class="text-danger">
               <small class="fw-bold" *ngIf="leaveForm.get('notifyTo')?.hasError('required')">This field is
@@ -166,8 +189,9 @@
 
           <!------------------------------------Base location------------------------------------->
           <div class="mb-3 fw-bold">
-            <label id="baseLocation" name="baseLocation" for="baseLocation" class="form-label"> <span class="text-danger">*</span>Base Location </label>
-            <ng-select [items]="locations" placeholder="Select Base Location" formControlName="baseLocation"
+            <label id="baseLocation" name="baseLocation" for="baseLocation" class="form-label"> <span
+                class="text-danger">*</span>Base Location </label>
+            <ng-select [items]="locations" id="baseLocation" placeholder="Select Base Location" formControlName="baseLocation"
               [class.is-invalid]="leaveForm.get('baseLocation')?.invalid && leaveForm.get('baseLocation')?.touched"
               [searchable]="true">
             </ng-select>
@@ -180,8 +204,9 @@
 
           <!------------------------------------Project----------------------------------------->
           <div class="mb-3 fw-bold">
-            <label id="projectSow" name="projectSow" for="projectSow" class="form-label"><span class="text-danger">*</span>Project</label>
-            <ng-select [items]="projects" placeholder="Select Project" formControlName="projectSow"
+            <label id="projectSow" name="projectSow" for="projectSow" class="form-label"><span
+                class="text-danger">*</span>Project</label>
+            <ng-select [items]="projects" id="projectSowInput" placeholder="Select Project" formControlName="projectSow"
               [class.is-invalid]="leaveForm.get('projectSow')?.invalid && leaveForm.get('projectSow')?.touched"
               [searchable]="true">
             </ng-select>
@@ -194,8 +219,9 @@
 
           <!------------------------------------Team----------------------------------------->
           <div class="mb-3 fw-bold">
-            <label id="subLobTeam" name="subLobTeam" for="subLobTeam" class="form-label"><span class="text-danger">*</span>Team </label>
-            <ng-select [items]="subLobteams" placeholder="Select Team" formControlName="subLobTeam"
+            <label id="subLobTeam" name="subLobTeam" for="subLobTeam" class="form-label"><span
+                class="text-danger">*</span>Team </label>
+            <ng-select [items]="subLobteams" id="subLobTeamInput" placeholder="Select Team" formControlName="subLobTeam"
               [class.is-invalid]="leaveForm.get('subLobTeam')?.invalid && leaveForm.get('subLobTeam')?.touched"
               [searchable]="true">
             </ng-select>
@@ -208,9 +234,10 @@
 
           <!------------------------------------Leave status------------------------------------->
           <div class="mb-3 fw-bold">
-            <label id="leaveStatus" name="leaveStatus" for="leaveStatus" class="form-label"> <span class="text-danger">*</span>Leave Status <span
-                class="small text-muted">(Pick Planned if start date is in future)</span></label>
-            <ng-select [items]="leaveStatus" placeholder="Select Leave Status" formControlName="leaveStatus"
+            <label id="leaveStatus" name="leaveStatus" for="leaveStatus" class="form-label"> <span
+                class="text-danger">*</span>Leave Status <span class="small text-muted">(Pick Planned if start date is
+                in future)</span></label>
+            <ng-select [items]="leaveStatus" id="leaveStatusInput" placeholder="Select Leave Status" formControlName="leaveStatus"
               [class.is-invalid]="leaveForm.get('leaveStatus')?.invalid && leaveForm.get('leaveStatus')?.touched"
               [searchable]="true">
             </ng-select>
@@ -223,10 +250,10 @@
 
           <!------------------------------------Comments---------------------------------------->
           <div class="mb-3 fw-bold">
-            <label id="comments"name="comments" for="comments" class="form-label">Comments</label>
+            <label id="comments" name="comments" for="comments" class="form-label">Comments</label>
             <textarea
               placeholder="Optional - Mention anything else that you'd like to add in less than (or) equal to 100 characters"
-              class="form-control" id="comments" rows="3" formControlName="comments" (input)="onCommentSecInput()"
+              class="form-control" id="commentsInput" rows="3" formControlName="comments" (input)="onCommentSecInput()"
               maxlength="100"></textarea>
 
             <div class="text-end small text-muted mt-1">

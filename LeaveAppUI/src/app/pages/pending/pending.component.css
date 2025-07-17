@@ -246,6 +246,23 @@ ul.no-bullets {
   padding-left: 0 !important;
   margin-left: 0 !important;
 }
+.blue-strip {
+  background-color:  #bd5bf6;
+  width: 6px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  transition: width 0.3s ease;
+  z-index: 1;
+}
+
+.leave-card:hover .blue-strip {
+  background-color: #A100FF ;
+  width: 10px;
+}
 
 
 
