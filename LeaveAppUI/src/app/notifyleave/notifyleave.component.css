@@ -22,7 +22,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   -webkit-appearance: none;
 }
 
-
+.alert{
+  margin-top:60px;
+}
 
 .start-date-icon {
   position: absolute;

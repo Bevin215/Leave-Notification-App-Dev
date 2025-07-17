@@ -23,6 +23,6 @@ export class HomepageComponent implements OnInit {
 
   refreshHolidayDates(): void {
     this.holidayService.clearHolidayCache();
-    this.loadHolidayDates(); // Force re-fetch
+    this.loadHolidayDates();
   }
 }
