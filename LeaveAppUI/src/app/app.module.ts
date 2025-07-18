@@ -15,6 +15,12 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormSubmittedComponent } from './form-submitted/form-submitted.component';
 import { PendingComponent } from './pages/pending/pending.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
+import { FullCalendarModule } from '@fullcalendar/angular';
+
 
 
 @NgModule({
@@ -25,6 +31,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     FormSubmittedComponent,
     PendingComponent,
     NavbarComponent,
+    CalendarComponent,
+     
 
 
   ],
@@ -39,6 +47,12 @@ import { NavbarComponent } from './navbar/navbar.component';
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
+    BrowserModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+    FullCalendarModule,
 
   ],
   providers: [],
