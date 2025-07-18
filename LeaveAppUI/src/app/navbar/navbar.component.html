@@ -1,0 +1,18 @@
+<div>
+    <nav *ngIf="isVisible" class="navbar navbar-expand-lg fixed-top " style="padding: 10px; background-color: #A100FF; border-radius: 5px;">
+  <div class="container-fluid position-relative">
+    <a class="navbar-brand position-absolute start-50 translate-middle-x fw-bold" style="color: white;" [routerLink]="'/homepage'">Notify Leave</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+      <div class="navbar-nav d-flex gap-3">
+        <a class="nav-link active fw-bold" aria-current="page" [routerLink]="'/notifyleave'">Home</a>
+        <a class="nav-link fw-bold" [routerLink]="'/pending'">Leave Request</a>
+        <a class="nav-link fw-bold" [routerLink]="'/calendar'">Go to calendar</a>
+      </div>
+    </div>
+  </div>
+</nav>
+</div>
