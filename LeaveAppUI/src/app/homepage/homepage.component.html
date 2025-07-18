@@ -7,7 +7,7 @@
 
     <h2 class="text-dark mb-1">Notify Your Leave</h2>
 
-    <h2 class="text-dark fs-5 mb-4">Good Morning! <br> User</h2>
+    <h2 class="text-dark fs-5 mb-4">{{ greeting }} <br> User</h2>
 
     <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
       <img src="assets/images/arrow.png" alt="Arrow" class="arrow">
@@ -17,6 +17,12 @@
     </div>
 
     <h4>Take a break, you deserve it.</h4>
+
+    <button (click)="refreshHolidayDates()" class="btn p-0 border-0 bg-transparent" title="Sync Holiday Dates">
+  <i class="bi bi-arrow-repeat fs-5 text-primary"></i>
+</button>
+
+
 
   </div>
 </div>
