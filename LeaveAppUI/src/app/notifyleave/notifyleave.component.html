@@ -77,9 +77,9 @@
               [attr.min]="leaveForm.get('startDate')?.value"
               [ngClass]="{'is-invalid': leaveForm.get('endDate')?.invalid && leaveForm.get('endDate')?.touched}"
               #dateInputEnd />
-            <span class="calendar-icon end-date-icon" tabindex="0" (click)="dateInputEnd.showPicker()" (keydown.enter)="dateInputEnd.showPicker()"  (keydown.space)="dateInputEnd.showPicker()">
+            <div class="calendar-icon end-date-icon" tabindex="0" (click)="dateInputEnd.showPicker()" (keydown.enter)="dateInputEnd.showPicker()"  (keydown.space)="dateInputEnd.showPicker()">
               <i id="end-date-icon" name="end-date-icon" class="bi bi-calendar-event"></i>
-            </span>
+            </div>
             <div *ngIf="leaveForm.get('endDate')?.invalid && leaveForm.get('endDate')?.touched" class="text-danger">
               <small *ngIf="leaveForm.get('endDate')?.hasError('required')">This field is required.</small>
             </div>
