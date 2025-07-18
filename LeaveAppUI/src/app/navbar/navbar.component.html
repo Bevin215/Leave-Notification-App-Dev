@@ -8,8 +8,9 @@
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
       <div class="navbar-nav d-flex gap-3">
-        <a class="nav-link active fw-bold" aria-current="page" href="/notifyleave">Home</a>
-        <a class="nav-link fw-bold" href="/pending">Leave Request</a>
+        <a class="nav-link active fw-bold" aria-current="page" [routerLink]="'/notifyleave'">Home</a>
+        <a class="nav-link fw-bold" [routerLink]="'/pending'">Leave Request</a>
+        <a class="nav-link fw-bold" [routerLink]="'/calendar'">Go to calendar</a>
       </div>
     </div>
   </div>

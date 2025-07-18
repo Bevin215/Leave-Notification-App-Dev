@@ -41,3 +41,10 @@
 .click-link:hover {
   color: purple;
 }
+
+button:hover i {
+  color: #0d59fd; /* or any shade of blue */
+  transform: rotate(20deg);
+  transition: 0.3s ease;
+}
+
