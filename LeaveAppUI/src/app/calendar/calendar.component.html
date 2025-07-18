@@ -1,0 +1,15 @@
+<div class="page-container">
+  <div class="filter-panel">
+    <label for="leaveTypeSelect" id="leavetypeselect">Filter by Leave Type:</label>
+    <select id="leaveTypeSelect" [(ngModel)]="selectedLeaveType" (change)="filterEvents()">
+      <option value="">All</option>
+      <option value="Sick">Sick Leave</option>
+      <option value="Casual">Planned Leave</option>
+      <option value="planned">UnPlanned Leave</option>
+    </select>
+  </div>
+
+  <div class="calendar-half">
+    <full-calendar [options]="calendarOptions"></full-calendar>
+  </div>
+</div>

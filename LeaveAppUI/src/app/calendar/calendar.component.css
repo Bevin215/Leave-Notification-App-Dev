@@ -1,0 +1,28 @@
+
+:host ::ng-deep .fc {
+  margin-top: 80px;
+}
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.filter-panel {
+  width: 25%;
+  margin-right: 20px;
+  padding: 10px;
+  margin-top: -45%;
+  border: 1px solid black;
+  border-radius: 8px;
+  background-color:#A100FF;
+  color: white;
+  font-weight: bold;
+}
+
+.calendar-half {
+  width: 70%;
+}
+
+
